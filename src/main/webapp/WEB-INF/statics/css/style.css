@@ -1,0 +1,160 @@
+/*整体*/
+.body-container{
+    background-color: #fbfbfb;
+}
+
+
+/*head菜单*/
+/*浮动菜单*/
+.heihan-header {
+    position: fixed;
+}
+
+.neihan-container {
+    margin: 0 15px;
+    position: relative;
+}
+.neihan-nav {
+    width: 100%;
+    height: 64px;
+    /*position: fixed;*/
+    top: 0;
+    background-color: #393D49;
+    border-bottom: 1px solid #5FB878;
+}
+
+.neihan-nav .neihan-user {
+    line-height: 64px;
+    position: absolute;
+    z-index: 10;
+    right: 10px;
+}
+.neihan-nav .neihan-logo {
+    position: absolute;
+    top: 0px;
+    left: 25%;
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+    line-height: 64px;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+    font-family: KaiTi;
+    display: inline-block;
+    z-index: 10;
+}
+.neihan-user a, .neihan-user {
+    color: #fff;
+}
+
+/*banner效果*/
+#banner {
+    width: 100%;
+    height: 420px;
+    /*margin-top: 64px;*/
+    background: url(../images/banner.jpg);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#bannerbody {
+    width: 100%;
+    height: 420px;
+    text-align: center;
+    background: rgba(0,0,0,.7);
+}
+#bannerbody .search-form {
+    margin: 0 auto;
+    width: 420px;
+    box-sizing: content-box;
+}
+#bannerbody .search-form .search-btn {
+    background: #1e88e5;
+    font-size: 16px;
+    height: 44px;
+    border: none;
+    color: #fff;
+    display: inline-block;
+    float: left;
+    width: 100px;
+    font-family: "Microsoft YaHei";
+}
+#bannerbody h2 {
+    padding-top: 130px;
+    font-size: 32px;
+    line-height: 40px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+#bannerbody p {
+    font-size: 14px;
+    color: #a1a4af;
+    margin-bottom: 30px;
+}
+#bannerbody .search-form .search-input {
+    background: #fff;
+    height: 44px;
+    line-height: 44px;
+    font-size: 16px;
+    display: inline-block;
+    float: left;
+    width: 320px;
+    font-family: "Microsoft YaHei";
+    text-indent: 15px;
+}
+
+
+/*homepostion*/
+.layui-tab-title.positionalign
+{
+    text-align: center;
+}
+
+/*
+ * ===== cards 三列卡片
+ */
+.flowcard-container{
+    width: 1075px;
+    min-height: 600px;
+    margin: 0 auto 1px;
+}
+.cards {margin-left: -18px;}
+.card {
+    position: relative; display: inline; float: left; width: 239px; height: 326px; margin: 20px 0 0 18px;
+    background-color: #fff; border: 1px solid #eee; color: #707070;
+    box-shadow: 0 1px 3px 1px rgba(0,0,0,0.1),0 2px 10px 0 rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+}
+.card a { color: #404040;}
+.card a:hover { color: #404040; text-decoration: none;}
+.card-hd { height: 40px; line-height: 40px; padding: 10px 20px;}
+.card-dib { display: inline-block; vertical-align: middle; height: 40px; margin-right: 5px; overflow: hidden;}
+.card-image { display: block; width: 239px; height: 172px; overflow: hidden;}
+.card-image img { display: block; margin: -1px; max-width: 100%;}
+.card-image img:hover { opacity: .8;}
+.card-tag-0 {display:none;}
+.card-tag-1,.card-tag-2,.card-tag-3 {position:absolute;right:-4px;top:71px;height:40px;width:60px;}
+.card-tag-1 {background-image:url('../images/hcmv_rank_1@2x.png');}
+.card-tag-2 {background-image:url('../images/hcmv_rank_2@2x.png');}
+.card-tag-3 {background-image:url('../images/hcmv_rank_3@2x.png');}
+.card-bd { height: 80px; padding: 10px 20px; color: #707070; font-size: 14px; overflow: hidden;}
+.card-tit { font-size: 18px; font-weight: 400; margin-bottom: 4px; color:#404040;}
+.card-ft { padding: 0 10px;}
+.card-ft .card-ft-span {display: inline-block; vertical-align: middle; width: 45%;}
+.card-ft-span a {color: #707070;}
+.card-ft-span a:hover{ color: #707070; text-decoration: none;}
+
+/*
+ * ===== cards 图标
+ */
+.icon-reads,
+.icon-likes,
+.icon-scores,
+.icon-comments,
+.icon-collects { display: inline-block; vertical-align: middle; width: 30px; height: 30px;}
+.icon-reads { background-position: -60px 0;}
+.icon-likes { background-position: -90px 0;}
+.icon-scores { background-position: -150px 0;}
+.icon-comments { background-position: -120px 0;}
+.icon-collects {background-position: -180px 0;}

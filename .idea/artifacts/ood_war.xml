@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ood:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="ood.war">
+      <element id="artifact" artifact-name="ood:war exploded" />
+    </root>
+  </artifact>
+</component>
