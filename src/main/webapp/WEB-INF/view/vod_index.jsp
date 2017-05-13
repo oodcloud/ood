@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: vog1g
@@ -8,35 +9,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>内涵三十秒</title>
     <jsp:include page="home_include.jsp"/>
 </head>
 <body class="body-container">
 
 <%--菜单--%>
-<div class="neihan-nav">
-    <nav class="layui-header">
-        <div class="neihan-container">
-            <!-- 登陆 -->
-            <div class="neihan-user">
-                <a href="">注册</a>
-                |
-                <a href="">登录</a>
-            </div>
-            <!-- 调用站点首页 -->
-            <a class="neihan-logo" href="/"> <img src="../images/logo.png"/></a>
-            <!-- 导航菜单 -->
-            <ul class="layui-nav ">
-
-                <li class="layui-nav-item layui-this"><a href="javascript:;">首页</a></li>
-                <li class="layui-nav-item "><a href="">搞笑视频</a></li>
-                <li class="layui-nav-item "><a href="">搞笑图片</a></li>
-            </ul>
-        </div>
-    </nav>
-</div>
+<%--<div class="neihan-nav">--%>
+    <%--<jsp:include page="home_head.jsp"/>--%>
+<%--</div>--%>
 <%--banner图--%>
 <div id="banner">
     <div  id="bannerbody">
@@ -54,222 +35,536 @@
     </div>
 </div>
 
-<%--分类搞笑视频--%>
-
-<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+<div class="layui-tab layui-tab-brief" lay-filter="moviedata">
     <ul class="layui-tab-title positionalign">
-        <li class="layui-this" lay-id="111"><a href="">搞笑视频</a></li>
-        <li>网络短剧</li>
-        <li>搞笑动画</li>
-        <li>相声小品</li>
-        <li>综艺</li>
-        <li>配音</li>
-        <li>直播</li>
-        <li>集锦</li>
+        <li class="layui-this" lay-id="1">搞笑牛人</li>
+        <li lay-id="2">网络短剧</li>
+        <li lay-id="3">搞笑游戏</li>
+        <li lay-id="4">搞笑动画</li>
+        <li lay-id="5">相声小品</li>
+        <li lay-id="6">搞笑综艺</li>
+        <li lay-id="7">搞笑配音</li>
+        <li lay-id="8">搞笑直播</li>
+        <li lay-id="9">搞笑集锦</li>
     </ul>
     <div class="layui-tab-content" style="height: 700px;">
         <div class="layui-tab-item layui-show">
 
             <%--数据流加载BY V--%>
             <div class="flowcard-container">
-                <ul class="flow-default" style="height: 300px; " id="LAY_demo2">
-                    <li>
-                        <div class="card">
-                            <a href="graph.php?orkey=80GGSL" class="card-image" target="_blank">
-                                <img class="js-img"
-                                     src="http://avatar.graphmovie.com/boo/movies/13065/13065_20170505164634_b.png"
-                                     title="图解电影 | 免费送电影票丨撸片室の《超凡战队》" alt="图解电影 | 免费送电影票丨撸片室の《超凡战队》">
-                                <span class="card-tag-0"></span>
-                            </a>
-                            <div class="card-bd">
-                                <h3 class="card-tit nowrap"><a href="graph.php?orkey=80GGSL" target="_blank">免费送电影票丨撸片室の《超凡战队》</a>
-                                </h3>
-                                <p class="nowrap">具有国际吸引力的特效大片</p>
-                            </div>
-                            <ul class="card-ft">
-                                <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> 1.3万</li>
-                                <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 45px; color: #F7B824">&#xe641;</i></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="card">
-                            <a href="graph.php?orkey=80GGSL" class="card-image" target="_blank">
-                                <img class="js-img"
-                                     src="http://avatar.graphmovie.com/boo/movies/13065/13065_20170505164634_b.png"
-                                     title="图解电影 | 免费送电影票丨撸片室の《超凡战队》" alt="图解电影 | 免费送电影票丨撸片室の《超凡战队》">
-                                <span class="card-tag-0"></span>
-                            </a>
-                            <div class="card-bd">
-                                <h3 class="card-tit nowrap"><a href="graph.php?orkey=80GGSL" target="_blank">免费送电影票丨撸片室の《超凡战队》</a>
-                                </h3>
-                                <p class="nowrap">具有国际吸引力的特效大片</p>
-                            </div>
-                            <ul class="card-ft">
-                                <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> 1.3万</li>
-                                <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 45px; color: #F7B824">&#xe641;</i></li>
-                            </ul>
-                        </div>
+                <ul class="flow-default" style="height: 300px; " id="搞笑牛人">
+                    <c:forEach items="${jokespeople}" var="item">
+                        <li>
+                            <div class="card">
+                                <a href="/v_show/id_${item.mPlayurl}" class="card-image" target="_blank">
+                                    <img class="js-img"
+                                         src="${item.mPic}"
+                                         title="${item.mName}">
+                                    <span class="card-tag-0"></span>
+                                </a>
+                                <div class="card-bd">
+                                    <h3 class="card-tit nowrap"><a href="/v_show/id_${item.mPlayurl}" target="_blank">${item.mName}</a>
+                                    </h3>
+                                    <c:if test="${not empty item.mSubname}">
+                                        <p class="nowrap">${item.mSubname}</p>
+                                    </c:if>
 
-                    </li>
-                    <li>
-                        <div class="card">
-                            <a href="graph.php?orkey=80GGSL" class="card-image" target="_blank">
-                                <img class="js-img"
-                                     src="http://avatar.graphmovie.com/boo/movies/13065/13065_20170505164634_b.png"
-                                     title="图解电影 | 免费送电影票丨撸片室の《超凡战队》" alt="图解电影 | 免费送电影票丨撸片室の《超凡战队》">
-                                <span class="card-tag-0"></span>
-                            </a>
-                            <div class="card-bd">
-                                <h3 class="card-tit nowrap"><a href="graph.php?orkey=80GGSL" target="_blank">免费送电影票丨撸片室の《超凡战队》</a>
-                                </h3>
-                                <p class="nowrap">具有国际吸引力的特效大片</p>
+                                </div>
+                                <ul class="card-ft">
+                                    <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> ${item.mHits}</li>
+                                    <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 25px; color: #F7B824">&#xe641;</i></li>
+                                </ul>
                             </div>
-                            <ul class="card-ft">
-                                <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> 1.3万</li>
-                                <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 45px; color: #F7B824">&#xe641;</i></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="card">
-                            <a href="graph.php?orkey=80GGSL" class="card-image" target="_blank">
-                                <img class="js-img"
-                                     src="http://avatar.graphmovie.com/boo/movies/13065/13065_20170505164634_b.png"
-                                     title="图解电影 | 免费送电影票丨撸片室の《超凡战队》" alt="图解电影 | 免费送电影票丨撸片室の《超凡战队》">
-                                <span class="card-tag-0"></span>
-                            </a>
-                            <div class="card-bd">
-                                <h3 class="card-tit nowrap"><a href="graph.php?orkey=80GGSL" target="_blank">免费送电影票丨撸片室の《超凡战队》</a>
-                                </h3>
-                                <p class="nowrap">具有国际吸引力的特效大片</p>
+                        </li>
+                    </c:forEach>
+
+                </ul>
+            </div>
+
+        </div>
+        <div class="layui-tab-item">
+
+            <%--数据流加载BY V--%>
+            <div class="flowcard-container">
+                <ul class="flow-default" style="height: 300px; " id="网络短剧">
+                    <c:forEach items="${onlinedrama}" var="item">
+                        <li>
+                            <div class="card">
+                                <a href="/v_show/id_${item.mPlayurl}" class="card-image" target="_blank">
+                                    <img class="js-img"
+                                         src="${item.mPic}"
+                                         title="${item.mName}">
+                                    <span class="card-tag-0"></span>
+                                </a>
+                                <div class="card-bd">
+                                    <h3 class="card-tit nowrap"><a href="/v_show/id_${item.mPlayurl}" target="_blank">${item.mName}</a>
+                                    </h3>
+                                    <c:if test="${not empty item.mSubname}">
+                                        <p class="nowrap">${item.mSubname}</p>
+                                    </c:if>
+                                </div>
+                                <ul class="card-ft">
+                                    <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> ${item.mHits}</li>
+                                    <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 25px; color: #F7B824">&#xe641;</i></li>
+                                </ul>
                             </div>
-                            <ul class="card-ft">
-                                <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> 1.3万</li>
-                                <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 45px; color: #F7B824">&#xe641;</i></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="card">
-                            <a href="graph.php?orkey=80GGSL" class="card-image" target="_blank">
-                                <img class="js-img"
-                                     src="http://avatar.graphmovie.com/boo/movies/13065/13065_20170505164634_b.png"
-                                     title="图解电影 | 免费送电影票丨撸片室の《超凡战队》" alt="图解电影 | 免费送电影票丨撸片室の《超凡战队》">
-                                <span class="card-tag-0"></span>
-                            </a>
-                            <div class="card-bd">
-                                <h3 class="card-tit nowrap"><a href="graph.php?orkey=80GGSL" target="_blank">免费送电影票丨撸片室の《超凡战队》</a>
-                                </h3>
-                                <p class="nowrap">具有国际吸引力的特效大片</p>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+
+        </div>
+        <div class="layui-tab-item">
+            <%--数据流加载BY V--%>
+            <div class="flowcard-container">
+                <ul class="flow-default" style="height: 300px; " id="搞笑游戏">
+                    <c:forEach items="${jokesgame}" var="item">
+                        <li>
+                            <div class="card">
+                                <a href="/v_show/id_${item.mPlayurl}" class="card-image" target="_blank">
+                                    <img class="js-img"
+                                         src="${item.mPic}"
+                                         title="${item.mName}">
+                                    <span class="card-tag-0"></span>
+                                </a>
+                                <div class="card-bd">
+                                    <h3 class="card-tit nowrap"><a href="/v_show/id_${item.mPlayurl}" target="_blank">${item.mName}</a>
+                                    </h3>
+                                    <c:if test="${not empty item.mSubname}">
+                                        <p class="nowrap">${item.mSubname}</p>
+                                    </c:if>
+                                </div>
+                                <ul class="card-ft">
+                                    <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> ${item.mHits}</li>
+                                    <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 25px; color: #F7B824">&#xe641;</i></li>
+                                </ul>
                             </div>
-                            <ul class="card-ft">
-                                <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> 1.3万</li>
-                                <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 45px; color: #F7B824">&#xe641;</i></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="card">
-                            <a href="graph.php?orkey=80GGSL" class="card-image" target="_blank">
-                                <img class="js-img"
-                                     src="http://avatar.graphmovie.com/boo/movies/13065/13065_20170505164634_b.png"
-                                     title="图解电影 | 免费送电影票丨撸片室の《超凡战队》" alt="图解电影 | 免费送电影票丨撸片室の《超凡战队》">
-                                <span class="card-tag-0"></span>
-                            </a>
-                            <div class="card-bd">
-                                <h3 class="card-tit nowrap"><a href="graph.php?orkey=80GGSL" target="_blank">免费送电影票丨撸片室の《超凡战队》</a>
-                                </h3>
-                                <p class="nowrap">具有国际吸引力的特效大片</p>
-                            </div>
-                            <ul class="card-ft">
-                                <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> 1.3万</li>
-                                <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 45px; color: #F7B824">&#xe641;</i></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="card">
-                            <a href="graph.php?orkey=80GGSL" class="card-image" target="_blank">
-                                <img class="js-img"
-                                     src="http://avatar.graphmovie.com/boo/movies/13065/13065_20170505164634_b.png"
-                                     title="图解电影 | 免费送电影票丨撸片室の《超凡战队》" alt="图解电影 | 免费送电影票丨撸片室の《超凡战队》">
-                                <span class="card-tag-0"></span>
-                            </a>
-                            <div class="card-bd">
-                                <h3 class="card-tit nowrap"><a href="graph.php?orkey=80GGSL" target="_blank">免费送电影票丨撸片室の《超凡战队》</a>
-                                </h3>
-                                <p class="nowrap">具有国际吸引力的特效大片</p>
-                            </div>
-                            <ul class="card-ft">
-                                <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> 1.3万</li>
-                                <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 45px; color: #F7B824">&#xe641;</i></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="card">
-                            <a href="graph.php?orkey=80GGSL" class="card-image" target="_blank">
-                                <img class="js-img"
-                                     src="http://avatar.graphmovie.com/boo/movies/13065/13065_20170505164634_b.png"
-                                     title="图解电影 | 免费送电影票丨撸片室の《超凡战队》" alt="图解电影 | 免费送电影票丨撸片室の《超凡战队》">
-                                <span class="card-tag-0"></span>
-                            </a>
-                            <div class="card-bd">
-                                <h3 class="card-tit nowrap"><a href="graph.php?orkey=80GGSL" target="_blank">免费送电影票丨撸片室の《超凡战队》</a>
-                                </h3>
-                                <p class="nowrap">具有国际吸引力的特效大片</p>
-                            </div>
-                            <ul class="card-ft">
-                                <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> 1.3万</li>
-                                <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 45px; color: #F7B824">&#xe641;</i></li>
-                            </ul>
-                        </div>
-                    </li>
+                        </li>
+                    </c:forEach>
                 </ul>
             </div>
         </div>
-        <div class="layui-tab-item">内容2</div>
-        <div class="layui-tab-item">内容3</div>
-        <div class="layui-tab-item">内容4</div>
-        <div class="layui-tab-item">内容5</div>
+
+        <div class="layui-tab-item">
+            <%--数据流加载BY V--%>
+            <div class="flowcard-container">
+                <ul class="flow-default" style="height: 300px; " id="搞笑动画">
+                    <c:forEach items="${jokescartoon}" var="item">
+                        <li>
+                            <div class="card">
+                                <a href="/v_show/id_${item.mPlayurl}" class="card-image" target="_blank">
+                                    <img class="js-img"
+                                         src="${item.mPic}"
+                                         title="${item.mName}">
+                                    <span class="card-tag-0"></span>
+                                </a>
+                                <div class="card-bd">
+                                    <h3 class="card-tit nowrap"><a href="/v_show/id_${item.mPlayurl}" target="_blank">${item.mName}</a>
+                                    </h3>
+                                    <c:if test="${not empty item.mSubname}">
+                                        <p class="nowrap">${item.mSubname}</p>
+                                    </c:if>
+                                </div>
+                                <ul class="card-ft">
+                                    <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> ${item.mHits}</li>
+                                    <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 25px; color: #F7B824">&#xe641;</i></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-tab-item">
+            <%--数据流加载BY V--%>
+            <div class="flowcard-container">
+                <ul class="flow-default" style="height: 300px; " id="相声小品">
+                    <c:forEach items="${comedy}" var="item">
+                        <li>
+                            <div class="card">
+                                <a href="/v_show/id_${item.mPlayurl}" class="card-image" target="_blank">
+                                    <img class="js-img"
+                                         src="${item.mPic}"
+                                         title="${item.mName}">
+                                    <span class="card-tag-0"></span>
+                                </a>
+                                <div class="card-bd">
+                                    <h3 class="card-tit nowrap"><a href="/v_show/id_${item.mPlayurl}" target="_blank">${item.mName}</a>
+                                    </h3>
+                                    <c:if test="${not empty item.mSubname}">
+                                        <p class="nowrap">${item.mSubname}</p>
+                                    </c:if>
+                                </div>
+                                <ul class="card-ft">
+                                    <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> ${item.mHits}</li>
+                                    <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 25px; color: #F7B824">&#xe641;</i></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-tab-item">
+            <%--数据流加载BY V--%>
+            <div class="flowcard-container">
+                <ul class="flow-default" style="height: 300px; " id="综艺">
+                    <c:forEach items="${varietyshows}" var="item">
+                        <li>
+                            <div class="card">
+                                <a href="/v_show/id_${item.mPlayurl}" class="card-image" target="_blank">
+                                    <img class="js-img"
+                                         src="${item.mPic}"
+                                         title="${item.mName}">
+                                    <span class="card-tag-0"></span>
+                                </a>
+                                <div class="card-bd">
+                                    <h3 class="card-tit nowrap"><a href="/v_show/id_${item.mPlayurl}" target="_blank">${item.mName}</a>
+                                    </h3>
+                                    <c:if test="${not empty item.mSubname}">
+                                        <p class="nowrap">${item.mSubname}</p>
+                                    </c:if>
+                                </div>
+                                <ul class="card-ft">
+                                    <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> ${item.mHits}</li>
+                                    <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 25px; color: #F7B824">&#xe641;</i></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-tab-item">
+            <%--数据流加载BY V--%>
+            <div class="flowcard-container">
+                <ul class="flow-default" style="height: 300px; " id="配音">
+                    <c:forEach items="${dubbed}" var="item">
+                        <li>
+                            <div class="card">
+                                <a href="/v_show/id_${item.mPlayurl}" class="card-image" target="_blank">
+                                    <img class="js-img"
+                                         src="${item.mPic}"
+                                         title="${item.mName}">
+                                    <span class="card-tag-0"></span>
+                                </a>
+                                <div class="card-bd">
+                                    <h3 class="card-tit nowrap"><a href="/v_show/id_${item.mPlayurl}" target="_blank">${item.mName}</a>
+                                    </h3>
+                                    <c:if test="${not empty item.mSubname}">
+                                        <p class="nowrap">${item.mSubname}</p>
+                                    </c:if>
+                                </div>
+                                <ul class="card-ft">
+                                    <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> ${item.mHits}</li>
+                                    <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 25px; color: #F7B824">&#xe641;</i></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-tab-item">
+            <%--数据流加载BY V--%>
+            <div class="flowcard-container">
+                <ul class="flow-default" style="height: 300px; " id="直播">
+                    <c:forEach items="${live}" var="item">
+                        <li>
+                            <div class="card">
+                                <a href="/v_show/id_${item.mPlayurl}" class="card-image" target="_blank">
+                                    <img class="js-img"
+                                         src="${item.mPic}"
+                                         title="${item.mName}">
+                                    <span class="card-tag-0"></span>
+                                </a>
+                                <div class="card-bd">
+                                    <h3 class="card-tit nowrap"><a href="/v_show/id_${item.mPlayurl}" target="_blank">${item.mName}</a>
+                                    </h3>
+                                    <c:if test="${not empty item.mSubname}">
+                                        <p class="nowrap">${item.mSubname}</p>
+                                    </c:if>
+                                </div>
+                                <ul class="card-ft">
+                                    <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> ${item.mHits}</li>
+                                    <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 25px; color: #F7B824">&#xe641;</i></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-tab-item">
+            <%--数据流加载BY V--%>
+            <div class="flowcard-container">
+                <ul class="flow-default" style="height: 300px; " id="集锦">
+                    <c:forEach items="${jijin}" var="item">
+                        <li>
+                            <div class="card">
+                                <a href="/v_show/id_${item.mPlayurl}" class="card-image" target="_blank">
+                                    <img class="js-img"
+                                         src="${item.mPic}"
+                                         title="${item.mName}">
+                                    <span class="card-tag-0"></span>
+                                </a>
+                                <div class="card-bd">
+                                    <h3 class="card-tit nowrap"><a href="/v_show/id_${item.mPlayurl}" target="_blank">${item.mName}</a>
+                                    </h3>
+                                    <c:if test="${not empty item.mSubname}">
+                                        <p class="nowrap">${item.mSubname}</p>
+                                    </c:if>
+                                </div>
+                                <ul class="card-ft">
+                                    <li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> ${item.mHits}</li>
+                                    <li class="card-ft-span tac"><i class="layui-icon" style="font-size: 25px; color: #F7B824">&#xe641;</i></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>
+
     </div>
 </div>
 
+<div class="blank">
+</div>
+
+
+
 
 <script>
-    layui.use(['element', 'flow'], function () {
+
+
+
+    layui.use(['layer','element', 'flow'], function () {
         var $ = layui.jquery
             , element = layui.element(); //Tab的切换功能，切换事件监听等，需要依赖element模块
 //        流加载
         var flow = layui.flow;
+
         flow.load({
-            elem: '#LAY_demo2' //流加载容器
-            , scrollElem: '#LAY_demo2' //滚动条所在元素，一般不用填，此处只是演示需要。
+            elem: '#搞笑牛人' //指定列表容器
             , isAuto: false
             , isLazyimg: true
-            , done: function (page, next) { //加载下一页
-                //模拟插入
-                setTimeout(function () {
-                    var lis = [];
-                    for (var i = 0; i < 8; i++) {
-                        lis.push('<li><div class="card"><a href="graph.php?orkey=80GGSL" class="card-image" target="_blank"><img class="js-img"                                     src="http://avatar.graphmovie.com/boo/movies/13065/13065_20170505164634_b.png"                                     title="图解电影 | 免费送电影票丨撸片室の《超凡战队》" alt="图解电影 | 免费送电影票丨撸片室の《超凡战队》"><span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="graph.php?orkey=80GGSL" target="_blank">免费送电影票丨撸片室の《超凡战队》</a></h3><p class="nowrap">具有国际吸引力的特效大片</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size: 25px; color: #009688">&#xe600;</i> 1.3万</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size: 45px; color: #F7B824">&#xe641;</i></li></ul></div></li>')
-                    }
-                    next(lis.join(''), page < 8); //假设总页数为 6
-                }, 500);
+            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.get('/api/list/1/v/'+page, function(res){
+                    //假设你的列表返回在data集合中
+                    layui.each(res.data, function(index, item){
+                       var subname= item.mSubname;
+                       if($.isEmptyObject(subname))
+                       {
+                           subname=" ";
+                       }
+                        lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
+                    });
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    next(lis.join(''), page < 8);
+                });
             }
         });
 
-        //触发事件
-        var active = {
-            tabChange: function () {
-                //切换到指定Tab项
-//                element.tabChange('demo', '22'); //切换到：用户管理
+        flow.load({
+            elem: '#网络短剧' //指定列表容器
+            , isAuto: false
+            , isLazyimg: true
+            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.get('/api/list/2/v/'+page, function(res){
+                    //假设你的列表返回在data集合中
+                    layui.each(res.data, function(index, item){
+                        var subname= item.mSubname;
+                        if($.isEmptyObject(subname))
+                        {
+                            subname=" ";
+                        }
+                        lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
+                    });
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    next(lis.join(''), page < 8);
+                });
             }
-        };
+        });
+
+        flow.load({
+            elem: '#搞笑游戏' //指定列表容器
+            , isAuto: false
+            , isLazyimg: true
+            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.get('/api/list/3/v/'+page, function(res){
+                    //假设你的列表返回在data集合中
+                    layui.each(res.data, function(index, item){
+                        var subname= item.mSubname;
+                        if($.isEmptyObject(subname))
+                        {
+                            subname=" ";
+                        }
+                        lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
+                    });
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    next(lis.join(''), page < 8);
+                });
+            }
+        });
+
+        flow.load({
+            elem: '#搞笑动画' //指定列表容器
+            , isAuto: false
+            , isLazyimg: true
+            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.get('/api/list/4/v/'+page, function(res){
+                    //假设你的列表返回在data集合中
+                    layui.each(res.data, function(index, item){
+                        var subname= item.mSubname;
+                        if($.isEmptyObject(subname))
+                        {
+                            subname=" ";
+                        }
+                        lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
+                    });
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    next(lis.join(''), page < 8);
+                });
+            }
+        });
+
+        flow.load({
+            elem: '#相声小品' //指定列表容器
+            , isAuto: false
+            , isLazyimg: true
+            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.get('/api/list/5/v/'+page, function(res){
+                    //假设你的列表返回在data集合中
+                    layui.each(res.data, function(index, item){
+                        var subname= item.mSubname;
+                        if($.isEmptyObject(subname))
+                        {
+                            subname=" ";
+                        }
+                        lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
+                    });
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    next(lis.join(''), page < 8);
+                });
+            }
+        });
+        flow.load({
+            elem: '#综艺' //指定列表容器
+            , isAuto: false
+            , isLazyimg: true
+            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.get('/api/list/6/v/'+page, function(res){
+                    //假设你的列表返回在data集合中
+                    layui.each(res.data, function(index, item){
+                        var subname= item.mSubname;
+                        if($.isEmptyObject(subname))
+                        {
+                            subname=" ";
+                        }
+                        lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
+                    });
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    next(lis.join(''), page < 8);
+                });
+            }
+        });
+
+        flow.load({
+            elem: '#配音' //指定列表容器
+            , isAuto: false
+            , isLazyimg: true
+            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.get('/api/list/7/v/'+page, function(res){
+                    //假设你的列表返回在data集合中
+                    layui.each(res.data, function(index, item){
+                        var subname= item.mSubname;
+                        if($.isEmptyObject(subname))
+                        {
+                            subname=" ";
+                        }
+                        lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
+                    });
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    next(lis.join(''), page < 8);
+                });
+            }
+        });
+        flow.load({
+            elem: '#直播' //指定列表容器
+            , isAuto: false
+            , isLazyimg: true
+            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.get('/api/list/8/v/'+page, function(res){
+                    //假设你的列表返回在data集合中
+                    layui.each(res.data, function(index, item){
+                        var subname= item.mSubname;
+                        if($.isEmptyObject(subname))
+                        {
+                            subname=" ";
+                        }
+                        lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
+                    });
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    next(lis.join(''), page < 8);
+                });
+            }
+        });
+
+        flow.load({
+            elem: '#集锦' //指定列表容器
+            , isAuto: false
+            , isLazyimg: true
+            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.get('/api/list/9/v/'+page, function(res){
+                    //假设你的列表返回在data集合中
+                    layui.each(res.data, function(index, item){
+                        var subname= item.mSubname;
+                        if($.isEmptyObject(subname))
+                        {
+                            subname=" ";
+                        }
+                        lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
+                    });
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    next(lis.join(''), page < 8);
+                });
+            }
+        });
+
     });
 </script>
 
+
+
+<jsp:include page="home_foot.jsp"/>
 
 </body>
 </html>

@@ -82,6 +82,30 @@
     select count(*) from movie where m_playurl=#{0} and m_class=#{1}
 
   </select>
+
+  <!--通过class查询相关电影信息首页预加载阶段-->
+
+  <select id="selectMoiveOrderByClass" resultType="cn.generator.pojo.MovieWithBLOBs">
+
+     SELECT * FROM movie WHERE m_class=#{mClass} limit 16
+  </select>
+
+  <!--通过class查询相关电影信息首页瀑布流加载更多-->
+
+
+  <select id="selectMoiveOrderByClassMore" resultType="cn.generator.pojo.MovieWithBLOBs">
+   SELECT * FROM movie WHERE m_class=#{0} limit #{1} , #{2}
+  </select>
+    <select id="selectplayorderbyurl" resultType="cn.generator.pojo.MovieWithBLOBs">
+
+      select * from movie where m_playurl=#{mPlayurl}
+
+    </select>
+
+  <select id="selectRandByClass" resultType="cn.generator.pojo.MovieWithBLOBs">
+    SELECT * FROM movie WHERE m_class=#{mClass} order by rand() limit 8
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated

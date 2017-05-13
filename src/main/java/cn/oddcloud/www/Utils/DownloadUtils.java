@@ -48,11 +48,13 @@ public enum DownloadUtils {
 
         @Override
         public void run() {
+
             try {
-                  DownloadUtils.DOWN.downloadImg(imgUri,directory);
+                DownloadUtils.DOWN.downloadImg(imgUri,directory);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         }
     }
 
@@ -70,13 +72,12 @@ public enum DownloadUtils {
         get.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
          get.addHeader("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
         get.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2");
-
         FileImageOutputStream fios = null;
         InputStream in = null;
         ByteArrayOutputStream baos = null;
 
         String fileName=imgUri.split("\\/")[5];
-        try {
+
             baos = new ByteArrayOutputStream();
             HttpResponse hr = client.execute(get);
             HttpEntity entity = hr.getEntity();
@@ -107,17 +108,7 @@ public enum DownloadUtils {
                 baos.close();
                 fios.close();
             }
-        } catch (IOException e) {
-            //异常处理
-            if (null != fios) {
-                try {
-                    fios.close();
-                } catch (IOException e1) {
 
-                }
-            }
-
-        }
 
     }
 

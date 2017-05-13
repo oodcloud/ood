@@ -210,7 +210,7 @@ public class MovieBasePipline implements Pipeline {
         for (int i = 0; i < titles.size(); i++) {
             movieWithBLOBs = new MovieWithBLOBs();
             movieWithBLOBs.setmName(titles.get(i));
-            movieWithBLOBs.setmPic(CommonUtils.picpath(images.get(i)));
+            movieWithBLOBs.setmPic(images.get(i));
             movieWithBLOBs.setmPicslide(getmPicslide());
             movieWithBLOBs.setmPicthumb(getmPicthumb());
             movieWithBLOBs.setmArea("大陆");
@@ -238,13 +238,22 @@ public class MovieBasePipline implements Pipeline {
             movieWithBLOBs.setmDownurl(getmDownurl());
 
             //同步图片
-            if (isSycnImgflag.equals("true"))
-            DownloadUtils.DOWN.imgDownUrl(images.get(i), imagespath);
+            if (isSycnImgflag.equals("true")) {
+                DownloadUtils.DOWN.imgDownUrl(images.get(i), imagespath);
+                movieWithBLOBs.setmPic(CommonUtils.picpath(images.get(i)));
+            }
+
 
             //入库检查是否存在相同视频 以playurl标准
             int count = getMovieService().selectplayurl(movieWithBLOBs.getmPlayurl(), movieWithBLOBs.getmClass());
+            System.out.println(">>>>>>>>>>>>>>>"+movieWithBLOBs.getmPlayurl()+">>>>>>>>>>>>"+movieWithBLOBs.getmClass()+">>>>>>>>>>count:"+count);
+
+
             if (count == 0)
-                getMovieService().add(movieWithBLOBs);
+                getMovieService().add(movieWithBLOBs);//插入数据
+
+
+
         }
 
     }

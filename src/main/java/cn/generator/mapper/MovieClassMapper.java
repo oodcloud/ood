@@ -50,4 +50,9 @@ public interface MovieClassMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(MovieClass record);
+    /**
+     * 通过csort查询其name
+     */
+
+
 }

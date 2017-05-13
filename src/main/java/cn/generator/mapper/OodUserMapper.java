@@ -59,4 +59,12 @@ public interface OodUserMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(OodUser record);
+//    检验用户名是否存在
+
+    int selectUserNameIsExsit(String name);
+
+//   检验用户名和密码是否一致
+    int selectUserCheckAllMessage(String name,String passworld);
+
+
 }

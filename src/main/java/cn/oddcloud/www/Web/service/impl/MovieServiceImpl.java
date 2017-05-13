@@ -17,8 +17,8 @@ public class MovieServiceImpl implements MovieService {
     @Resource
     private MovieMapper movieMapper;
     @Override
-    public void add(MovieWithBLOBs movieWithBLOBs) {
-        movieMapper.insert(movieWithBLOBs);
+    public int add(MovieWithBLOBs movieWithBLOBs) {
+      return   movieMapper.insert(movieWithBLOBs);
 
     }
 
@@ -32,7 +32,16 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public int selectplayurl(String mPlayurl,String mClass) {
-
        return movieMapper.selectplayurl(mPlayurl,mClass);
+    }
+
+    @Override
+    public List<MovieWithBLOBs> selectMoiveOrderByClass(String mClass) {
+        return movieMapper.selectMoiveOrderByClass(mClass);
+    }
+
+    @Override
+    public List<MovieWithBLOBs> selectMoiveOrderByClassMore(String mClass, int page) {
+        return movieMapper.selectMoiveOrderByClassMore(mClass,(16*(page-1)),page*16);
     }
 }

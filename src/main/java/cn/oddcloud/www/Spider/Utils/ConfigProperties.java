@@ -25,7 +25,6 @@ public class ConfigProperties {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return properties.getProperty("imgsyn");
     }
 

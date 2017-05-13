@@ -65,6 +65,17 @@
     from ood_user
     where u_id = #{uId,jdbcType=INTEGER}
   </select>
+  <!--//    检验用户名是否存在-->
+  <select id="selectUserNameIsExsit" resultType="java.lang.Integer">
+
+    SELECT count(*) FROM ood_user WHERE u_name=#{name}
+
+  </select>
+  <!--//   检验用户名和密码是否一致-->
+  <select id="selectUserCheckAllMessage" resultType="java.lang.Integer">
+
+    SELECT count(*) FROM ood_user WHERE u_name=#{0} and u_password=#{1}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated
@@ -388,4 +399,5 @@
       u_end = #{uEnd,jdbcType=INTEGER}
     where u_id = #{uId,jdbcType=INTEGER}
   </update>
+
 </mapper>

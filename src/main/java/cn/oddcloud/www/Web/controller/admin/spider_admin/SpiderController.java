@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
  * Created by vog1g on 2017/4/29.
  */
 @Controller
-@RequestMapping("/api/spider")
+@RequestMapping("/admin/api/spider")
 public class SpiderController {
     @Resource
     private MovieService movieService;
@@ -29,7 +29,7 @@ public class SpiderController {
      * @param response
      * @return
      */
-    @RequestMapping("/comedystart.html")
+    @RequestMapping("/comedystart")
     public String ComedyStart(HttpServletRequest request, HttpServletResponse response) {
 
          HttpSession session= request.getSession();
@@ -42,9 +42,9 @@ public class SpiderController {
             Yiledao_Comedy_Spider.newInstance().stopAction();
             Yiledao_Comedy_Spider.newInstance().doAction(movieService);
         }
-        return "final";
+        return "spidering";
     }
-    @RequestMapping("/comedystop.html")
+    @RequestMapping("/comedystop")
     public String ComedyStop() {
         Yiledao_Comedy_Spider.newInstance().stopAction();
         return "index";
@@ -57,7 +57,7 @@ public class SpiderController {
      * @return
      */
 
-    @RequestMapping("/dubbedstart.html")
+    @RequestMapping("/dubbedstart")
     public String DubbedStart(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session= request.getSession();
@@ -70,12 +70,12 @@ public class SpiderController {
             Yiledao_Dubbed_Spider.newInstance().stopAction();
             Yiledao_Dubbed_Spider.newInstance().doAction(movieService);
         }
-        return "final";
+        return "spidering";
     }
-    @RequestMapping("/dubbedstop.html")
+    @RequestMapping("/dubbedstop")
     public String DubbedStop() {
         Yiledao_Dubbed_Spider.newInstance().stopAction();
-        return "index";
+        return "spidering";
     }
 
 
@@ -85,7 +85,7 @@ public class SpiderController {
      * @param response
      * @return
      */
-    @RequestMapping("/jijinstart.html")
+    @RequestMapping("/jijinstart")
     public String JiJinStart(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session= request.getSession();
@@ -98,9 +98,9 @@ public class SpiderController {
             Yiledao_JiJin_Spider.newInstance().stopAction();
             Yiledao_JiJin_Spider.newInstance().doAction(movieService);
         }
-        return "final";
+        return "spidering";
     }
-    @RequestMapping("/jijinstop.html")
+    @RequestMapping("/jijinstop")
     public String JiJinStop() {
         Yiledao_JiJin_Spider.newInstance().stopAction();
         return "index";
@@ -113,7 +113,7 @@ public class SpiderController {
      * @param response
      * @return
      */
-    @RequestMapping("/jokescartoonstart.html")
+    @RequestMapping("/jokescartoonstart")
     public String JokesCartoonStart(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session= request.getSession();
@@ -126,9 +126,9 @@ public class SpiderController {
             Yiledao_JokesCartoon_Spider.newInstance().stopAction();
             Yiledao_JokesCartoon_Spider.newInstance().doAction(movieService);
         }
-        return "final";
+        return "spidering";
     }
-    @RequestMapping("/jokescartoonstop.html")
+    @RequestMapping("/jokescartoonstop")
     public String JokesCartoonStop() {
         Yiledao_JokesCartoon_Spider.newInstance().stopAction();
         return "index";
@@ -140,7 +140,7 @@ public class SpiderController {
      * @param response
      * @return
      */
-    @RequestMapping("/jokesgamestart.html")
+    @RequestMapping("/jokesgamestart")
     public String JokesGameStart(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session= request.getSession();
@@ -153,9 +153,9 @@ public class SpiderController {
             Yiledao_JokesGame_Spider.newInstance().stopAction();
             Yiledao_JokesGame_Spider.newInstance().doAction(movieService);
         }
-        return "final";
+        return "spidering";
     }
-    @RequestMapping("/jokesgamestop.html")
+    @RequestMapping("/jokesgamestop")
     public String JokesGameStop() {
         Yiledao_JokesGame_Spider.newInstance().stopAction();
         return "index";
@@ -167,7 +167,7 @@ public class SpiderController {
      * @param response
      * @return
      */
-    @RequestMapping("/jokespeoplestart.html")
+    @RequestMapping("/jokespeoplestart")
     public String JokesPeopleStart(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session= request.getSession();
@@ -180,9 +180,9 @@ public class SpiderController {
             Yiledao_JokesPeople_Spider.newInstance().stopAction();
             Yiledao_JokesPeople_Spider.newInstance().doAction(movieService);
         }
-        return "final";
+        return "spidering";
     }
-    @RequestMapping("/jokespeoplestop.html")
+    @RequestMapping("/jokespeoplestop")
     public String JokesPeopleStop() {
         Yiledao_JokesPeople_Spider.newInstance().stopAction();
         return "index";
@@ -195,7 +195,7 @@ public class SpiderController {
      * @param response
      * @return
      */
-    @RequestMapping("/livestart.html")
+    @RequestMapping("/livestart")
     public String LiveStart(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session= request.getSession();
@@ -208,8 +208,9 @@ public class SpiderController {
             Yiledao_Live_Spider.newInstance().stopAction();
             Yiledao_Live_Spider.newInstance().doAction(movieService);
         }
-        return "final";
+        return "spidering";
     }
+    @RequestMapping("/livestop")
     public String LiveStop() {
         Yiledao_Live_Spider.newInstance().stopAction();
         return "index";
@@ -222,7 +223,7 @@ public class SpiderController {
      * @param response
      * @return
      */
-    @RequestMapping("/onlinedramastart.html")
+    @RequestMapping("/onlinedramastart")
     public String OnlineDramaStart(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session= request.getSession();
@@ -235,9 +236,9 @@ public class SpiderController {
             Yiledao_OnlineDrama_Spider.newInstance().stopAction();
             Yiledao_OnlineDrama_Spider.newInstance().doAction(movieService);
         }
-        return "final";
+        return "spidering";
     }
-    @RequestMapping("/onlinedramastop.html")
+    @RequestMapping("/onlinedramastop")
     public String OnlineDramaStop() {
         Yiledao_OnlineDrama_Spider.newInstance().stopAction();
         return "index";
@@ -251,7 +252,7 @@ public class SpiderController {
      * @param response
      * @return
      */
-    @RequestMapping("/varietyshowsstart.html")
+    @RequestMapping("/varietyshowsstart")
     public String VarietyShowsStart(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session= request.getSession();
@@ -264,9 +265,9 @@ public class SpiderController {
             Yiledao_VarietyShows_Spider.newInstance().stopAction();
             Yiledao_VarietyShows_Spider.newInstance().doAction(movieService);
         }
-        return "final";
+        return "spidering";
     }
-    @RequestMapping("/varietyshowsstop.html")
+    @RequestMapping("/varietyshowsstop")
     public String VarietyShowsStop() {
         Yiledao_VarietyShows_Spider.newInstance().stopAction();
         return "index";

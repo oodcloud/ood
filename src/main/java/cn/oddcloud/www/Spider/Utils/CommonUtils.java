@@ -8,7 +8,7 @@ import cn.oddcloud.www.Utils.DateUtils;
 public class CommonUtils {
     public static String picpath(String path){
         String imagespath=path.split("\\/")[5];
-       String paths= "/upload/"+DateUtils.dateToString(System.currentTimeMillis())+"/"+imagespath;
+       String paths= "/images/upload/"+DateUtils.dateToString(System.currentTimeMillis())+"/"+imagespath;
         return paths;
     }
 }

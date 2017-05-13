@@ -74,7 +74,7 @@ public class VR {
      vod_type.html        视频分类页面
 
 
-
+//https://ups.youku.com/ups/get.json?vid=XMjYzNzQ4ODcyNA==&ccode=0402&client_ip=&utid=&client_ts=&password=null
 
      */
 

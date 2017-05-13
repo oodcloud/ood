@@ -9,7 +9,10 @@ import java.util.List;
  * Created by vog1g on 2017/4/29.
  */
 public interface MovieService {
-     void add(MovieWithBLOBs movie);
+     int add(MovieWithBLOBs movie);
      void save(List<MovieWithBLOBs> ts);
      int selectplayurl(String mPlayurl,String mClass);
+     List<MovieWithBLOBs> selectMoiveOrderByClass(String mClass);
+     List<MovieWithBLOBs> selectMoiveOrderByClassMore(String mClass,int page);
+
 }
