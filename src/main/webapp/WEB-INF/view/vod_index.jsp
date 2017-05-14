@@ -341,19 +341,16 @@
 
     layui.use(['layer','element', 'flow'], function () {
         var $ = layui.jquery
-            , element = layui.element(); //Tab的切换功能，切换事件监听等，需要依赖element模块
-//        流加载
+            , element = layui.element();
         var flow = layui.flow;
-
         flow.load({
-            elem: '#搞笑牛人' //指定列表容器
+            elem: '#搞笑牛人'
             , isAuto: false
             , isLazyimg: true
-            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+            ,done: function(page, next){
                 var lis = [];
-                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
                 $.get('/api/list/1/v/'+page, function(res){
-                    //假设你的列表返回在data集合中
+
                     layui.each(res.data, function(index, item){
                        var subname= item.mSubname;
                        if($.isEmptyObject(subname))
@@ -362,22 +359,18 @@
                        }
                         lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
                     });
-                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
                     next(lis.join(''), page < 8);
                 });
             }
         });
 
         flow.load({
-            elem: '#网络短剧' //指定列表容器
+            elem: '#网络短剧'
             , isAuto: false
             , isLazyimg: true
-            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+            ,done: function(page, next){
                 var lis = [];
-                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
                 $.get('/api/list/2/v/'+page, function(res){
-                    //假设你的列表返回在data集合中
                     layui.each(res.data, function(index, item){
                         var subname= item.mSubname;
                         if($.isEmptyObject(subname))
@@ -386,22 +379,18 @@
                         }
                         lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
                     });
-                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
                     next(lis.join(''), page < 8);
                 });
             }
         });
 
         flow.load({
-            elem: '#搞笑游戏' //指定列表容器
+            elem: '#搞笑游戏'
             , isAuto: false
             , isLazyimg: true
-            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+            ,done: function(page, next){
                 var lis = [];
-                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
                 $.get('/api/list/3/v/'+page, function(res){
-                    //假设你的列表返回在data集合中
                     layui.each(res.data, function(index, item){
                         var subname= item.mSubname;
                         if($.isEmptyObject(subname))
@@ -410,22 +399,18 @@
                         }
                         lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
                     });
-                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
                     next(lis.join(''), page < 8);
                 });
             }
         });
 
         flow.load({
-            elem: '#搞笑动画' //指定列表容器
+            elem: '#搞笑动画'
             , isAuto: false
             , isLazyimg: true
-            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+            ,done: function(page, next){
                 var lis = [];
-                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
                 $.get('/api/list/4/v/'+page, function(res){
-                    //假设你的列表返回在data集合中
                     layui.each(res.data, function(index, item){
                         var subname= item.mSubname;
                         if($.isEmptyObject(subname))
@@ -434,8 +419,6 @@
                         }
                         lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
                     });
-                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
                     next(lis.join(''), page < 8);
                 });
             }
@@ -445,11 +428,9 @@
             elem: '#相声小品' //指定列表容器
             , isAuto: false
             , isLazyimg: true
-            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+            ,done: function(page, next){
                 var lis = [];
-                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
                 $.get('/api/list/5/v/'+page, function(res){
-                    //假设你的列表返回在data集合中
                     layui.each(res.data, function(index, item){
                         var subname= item.mSubname;
                         if($.isEmptyObject(subname))
@@ -458,21 +439,17 @@
                         }
                         lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
                     });
-                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
                     next(lis.join(''), page < 8);
                 });
             }
         });
         flow.load({
-            elem: '#综艺' //指定列表容器
+            elem: '#综艺'
             , isAuto: false
             , isLazyimg: true
-            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+            ,done: function(page, next){
                 var lis = [];
-                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
                 $.get('/api/list/6/v/'+page, function(res){
-                    //假设你的列表返回在data集合中
                     layui.each(res.data, function(index, item){
                         var subname= item.mSubname;
                         if($.isEmptyObject(subname))
@@ -481,22 +458,18 @@
                         }
                         lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
                     });
-                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
                     next(lis.join(''), page < 8);
                 });
             }
         });
 
         flow.load({
-            elem: '#配音' //指定列表容器
+            elem: '#配音'
             , isAuto: false
             , isLazyimg: true
-            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+            ,done: function(page, next){
                 var lis = [];
-                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
                 $.get('/api/list/7/v/'+page, function(res){
-                    //假设你的列表返回在data集合中
                     layui.each(res.data, function(index, item){
                         var subname= item.mSubname;
                         if($.isEmptyObject(subname))
@@ -505,21 +478,17 @@
                         }
                         lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
                     });
-                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
                     next(lis.join(''), page < 8);
                 });
             }
         });
         flow.load({
-            elem: '#直播' //指定列表容器
+            elem: '#直播'
             , isAuto: false
             , isLazyimg: true
-            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+            ,done: function(page, next){
                 var lis = [];
-                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
                 $.get('/api/list/8/v/'+page, function(res){
-                    //假设你的列表返回在data集合中
                     layui.each(res.data, function(index, item){
                         var subname= item.mSubname;
                         if($.isEmptyObject(subname))
@@ -528,22 +497,18 @@
                         }
                         lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
                     });
-                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
                     next(lis.join(''), page < 8);
                 });
             }
         });
 
         flow.load({
-            elem: '#集锦' //指定列表容器
+            elem: '#集锦'
             , isAuto: false
             , isLazyimg: true
-            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+            ,done: function(page, next){
                 var lis = [];
-                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
                 $.get('/api/list/9/v/'+page, function(res){
-                    //假设你的列表返回在data集合中
                     layui.each(res.data, function(index, item){
                         var subname= item.mSubname;
                         if($.isEmptyObject(subname))
@@ -552,8 +517,6 @@
                         }
                         lis.push('<li><div class="card"><a href="/v_show/id_'+item.mPlayurl+'" class="card-image" target="_blank"><img class="js-img" src="'+item.mPic+'" title="'+item.mName+'"> <span class="card-tag-0"></span></a><div class="card-bd"><h3 class="card-tit nowrap"><a href="/v_show/id_'+item.mPlayurl+'" target="_blank">'+item.mName+'</a></h3><p class="nowrap">'+subname+'</p></div><ul class="card-ft"><li class="card-ft-span"><i class="layui-icon" style="font-size:25px;color:#009688">&#xe600;</i> '+item.mHits+'</li><li class="card-ft-span tac"><i class="layui-icon" style="font-size:25px;color:#F7B824">&#xe641;</i></li></ul></div></li>')
                     });
-                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
                     next(lis.join(''), page < 8);
                 });
             }

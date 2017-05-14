@@ -4,7 +4,7 @@ import cn.generator.mapper.MovieMapper;
 import cn.generator.pojo.MovieDiscuss;
 import cn.generator.pojo.MovieWithBLOBs;
 import cn.oddcloud.www.Parse.YoukuParseApi;
-import cn.oddcloud.www.Utils.Similarity;
+
 import cn.oddcloud.www.Utils.TypeUtils;
 import cn.oddcloud.www.Web.Entity.PlayContentEntity;
 import cn.oddcloud.www.Web.service.PlayService;

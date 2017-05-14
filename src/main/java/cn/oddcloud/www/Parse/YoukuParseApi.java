@@ -123,6 +123,7 @@ public class YoukuParseApi {
         {
             return "视频不存在";
         }
+
         JSONArray segs = streams.getJSONObject(2).getJSONArray("segs");
         for (int j = 0; j < segs.size(); j++) {
             String fileId = segs.getJSONObject(j).getString("fileid");

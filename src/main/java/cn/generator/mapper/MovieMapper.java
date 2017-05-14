@@ -2,8 +2,10 @@ package cn.generator.mapper;
 
 import cn.generator.pojo.Movie;
 import cn.generator.pojo.MovieWithBLOBs;
+import cn.generator.pojo.MovieWithMovieClass;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MovieMapper {
     /**
@@ -73,15 +75,61 @@ public interface MovieMapper {
     List<MovieWithBLOBs> selectplayorderbyurl(String mPlayurl);
 
 
-
     //     通过class找相关movie信息
     List<MovieWithBLOBs> selectMoiveOrderByClass(String mClass);
 
     //在play播放页中获取推荐movie
 
-   List<MovieWithBLOBs> selectRandByClass(String mClass);
+    List<MovieWithBLOBs> selectRandByClass(String mClass);
 
 
     //     加载瀑布流更多
-    List<MovieWithBLOBs> selectMoiveOrderByClassMore(String mClass,int start,int end);
+    List<MovieWithBLOBs> selectMoiveOrderByClassMore(String mClass, int start, int end);
+
+    /**
+     * @return 电影表中有多少不同视频分类
+     */
+    List<String> selectVideoClasses();
+
+    /**
+     * @return 电影表中有多少不同视频地区
+     */
+    List<String> selectVideoAreas();
+
+    /**
+     * @return 电影表中有多少不同视频语言
+     */
+    List<String> selectVideoLangs();
+
+    /**
+     * @return 电影表中有多少不同视频播放器
+     */
+    List<String> selectVideoPlayfroms();
+
+    /**
+     * 后台中视频数据项中的上部分的动态查询
+     *
+     *   选中的视频分类
+     *   选中的视频地区
+     *   选中的视频语言
+     *   选中的视频播放器
+     *   选中的视频推荐
+     *   选中的视频隐藏
+     *   输入的查询关键字
+     * @return
+     */
+    List<MovieWithMovieClass> getDynamicQueryMovieInVideoData(Map map);
+//    String mclass, String area, String lang, String playfrom, String level, String hide, String key
+
+    //    后台中视频数据项中的上部分的动态查询的分页操作
+    List<MovieWithMovieClass> getDynamicQueryMovieMoreInVideoData(Map map);
+    int getDynamicQueryMovieMoreInVideoDataPageSize(Map map);
+
+    //    初始化后台视频数据中的最初加载页面
+    List<MovieWithMovieClass> getInitDataMovieVideo();
+
+    //    初始化后台视频数据中的最初加载页面的分页操作
+    List<MovieWithMovieClass> getInitDataMoreMovieVideo(int start, int end);
+    int getInitDataMoreMovieVideoPageSize();
+
 }
