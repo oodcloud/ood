@@ -19,8 +19,8 @@
     <result column="u_answer" property="uAnswer" jdbcType="VARCHAR" />
     <result column="u_group" property="uGroup" jdbcType="SMALLINT" />
     <result column="u_points" property="uPoints" jdbcType="SMALLINT" />
-    <result column="u_regtime" property="uRegtime" jdbcType="INTEGER" />
-    <result column="u_logintime" property="uLogintime" jdbcType="INTEGER" />
+    <result column="u_regtime" property="uRegtime" jdbcType="VARCHAR" />
+    <result column="u_logintime" property="uLogintime" jdbcType="VARCHAR" />
     <result column="u_loginnum" property="uLoginnum" jdbcType="SMALLINT" />
     <result column="u_extend" property="uExtend" jdbcType="SMALLINT" />
     <result column="u_loginip" property="uLoginip" jdbcType="INTEGER" />
@@ -76,6 +76,14 @@
 
     SELECT count(*) FROM ood_user WHERE u_name=#{0} and u_password=#{1}
   </select>
+
+<!--//查询普通管理员-->
+
+  <select id="FindUserAdmin" resultType="cn.generator.pojo.UserWithRole">
+
+    select * FROM ood_user JOIN  ood_role on r_type=u_group
+
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated
@@ -101,7 +109,7 @@
       #{uPassword,jdbcType=VARCHAR}, #{uQq,jdbcType=VARCHAR}, #{uEmail,jdbcType=VARCHAR}, 
       #{uPhone,jdbcType=VARCHAR}, #{uStatus,jdbcType=BIT}, #{uFlag,jdbcType=BIT}, #{uQuestion,jdbcType=VARCHAR}, 
       #{uAnswer,jdbcType=VARCHAR}, #{uGroup,jdbcType=SMALLINT}, #{uPoints,jdbcType=SMALLINT}, 
-      #{uRegtime,jdbcType=INTEGER}, #{uLogintime,jdbcType=INTEGER}, #{uLoginnum,jdbcType=SMALLINT}, 
+      #{uRegtime,jdbcType=VARCHAR}, #{uLogintime,jdbcType=VARCHAR}, #{uLoginnum,jdbcType=SMALLINT},
       #{uExtend,jdbcType=SMALLINT}, #{uLoginip,jdbcType=INTEGER}, #{uRandom,jdbcType=VARCHAR}, 
       #{uStart,jdbcType=INTEGER}, #{uEnd,jdbcType=INTEGER}, #{uFav,jdbcType=LONGVARCHAR}, 
       #{uPlays,jdbcType=LONGVARCHAR}, #{uDowns,jdbcType=LONGVARCHAR})
@@ -227,10 +235,10 @@
         #{uPoints,jdbcType=SMALLINT},
       </if>
       <if test="uRegtime != null" >
-        #{uRegtime,jdbcType=INTEGER},
+        #{uRegtime,jdbcType=VARCHAR},
       </if>
       <if test="uLogintime != null" >
-        #{uLogintime,jdbcType=INTEGER},
+        #{uLogintime,jdbcType=VARCHAR},
       </if>
       <if test="uLoginnum != null" >
         #{uLoginnum,jdbcType=SMALLINT},
@@ -305,10 +313,10 @@
         u_points = #{uPoints,jdbcType=SMALLINT},
       </if>
       <if test="uRegtime != null" >
-        u_regtime = #{uRegtime,jdbcType=INTEGER},
+        u_regtime = #{uRegtime,jdbcType=VARCHAR},
       </if>
       <if test="uLogintime != null" >
-        u_logintime = #{uLogintime,jdbcType=INTEGER},
+        u_logintime = #{uLogintime,jdbcType=VARCHAR},
       </if>
       <if test="uLoginnum != null" >
         u_loginnum = #{uLoginnum,jdbcType=SMALLINT},
@@ -358,8 +366,8 @@
       u_answer = #{uAnswer,jdbcType=VARCHAR},
       u_group = #{uGroup,jdbcType=SMALLINT},
       u_points = #{uPoints,jdbcType=SMALLINT},
-      u_regtime = #{uRegtime,jdbcType=INTEGER},
-      u_logintime = #{uLogintime,jdbcType=INTEGER},
+      u_regtime = #{uRegtime,jdbcType=VARCHAR},
+      u_logintime = #{uLogintime,jdbcType=VARCHAR},
       u_loginnum = #{uLoginnum,jdbcType=SMALLINT},
       u_extend = #{uExtend,jdbcType=SMALLINT},
       u_loginip = #{uLoginip,jdbcType=INTEGER},
@@ -389,8 +397,8 @@
       u_answer = #{uAnswer,jdbcType=VARCHAR},
       u_group = #{uGroup,jdbcType=SMALLINT},
       u_points = #{uPoints,jdbcType=SMALLINT},
-      u_regtime = #{uRegtime,jdbcType=INTEGER},
-      u_logintime = #{uLogintime,jdbcType=INTEGER},
+      u_regtime = #{uRegtime,jdbcType=VARCHAR},
+      u_logintime = #{uLogintime,jdbcType=VARCHAR},
       u_loginnum = #{uLoginnum,jdbcType=SMALLINT},
       u_extend = #{uExtend,jdbcType=SMALLINT},
       u_loginip = #{uLoginip,jdbcType=INTEGER},

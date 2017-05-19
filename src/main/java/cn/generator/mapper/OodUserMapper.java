@@ -2,6 +2,9 @@ package cn.generator.mapper;
 
 import cn.generator.pojo.OodUser;
 import cn.generator.pojo.OodUserWithBLOBs;
+import cn.generator.pojo.UserWithRole;
+
+import java.util.List;
 
 public interface OodUserMapper {
     /**
@@ -64,7 +67,9 @@ public interface OodUserMapper {
     int selectUserNameIsExsit(String name);
 
 //   检验用户名和密码是否一致
-    int selectUserCheckAllMessage(String name,String passworld);
+    int selectUserCheckAllMessage(String name, String passworld);
+
+    List<UserWithRole> FindUserAdmin();//查询普通管理员
 
 
 }

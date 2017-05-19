@@ -3,6 +3,8 @@ package cn.generator.mapper;
 import cn.generator.pojo.Movie;
 import cn.generator.pojo.MovieWithBLOBs;
 import cn.generator.pojo.MovieWithMovieClass;
+import cn.oddcloud.www.Web.Entity.UpdataLevelEntity;
+import cn.oddcloud.www.Web.Entity.UpdataSortEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -86,6 +88,13 @@ public interface MovieMapper {
     //     加载瀑布流更多
     List<MovieWithBLOBs> selectMoiveOrderByClassMore(String mClass, int start, int end);
 
+
+    //*************************************************************************************************
+    //                                *******************************
+    //*****************************  * 以下 后台视频数据页面相关对数据库的操作*                    *****************************************
+    //                                 *******************************
+    //*************************************************************************************************
+
     /**
      * @return 电影表中有多少不同视频分类
      */
@@ -131,5 +140,21 @@ public interface MovieMapper {
     //    初始化后台视频数据中的最初加载页面的分页操作
     List<MovieWithMovieClass> getInitDataMoreMovieVideo(int start, int end);
     int getInitDataMoreMovieVideoPageSize();
+
+    //批量删除
+    int  DeleteVideoDatas(int[] mids);
+
+    //批量更新推荐
+    int  UpdataLevelVideoDatas(List<UpdataLevelEntity> updataLevelEntities);
+
+    //批量更新分类
+    int  UpdataSortVideoDatas(List<UpdataSortEntity> updataSortEntities);
+    //*************************************************************************************************
+    //                                *******************************
+    //*****************************  * 以上 后台视频数据页面相关对数据库的操作*                    *****************************************
+    //                                 *******************************
+    //*************************************************************************************************
+
+
 
 }

@@ -722,7 +722,6 @@
     position: absolute;
     left: 200px;
     right: 0;
-
     z-index: 998;
     width: auto;
     overflow: hidden;
@@ -740,4 +739,8 @@
 }
 .welcome-content{
     margin-top: 10px;
+}
+/*视频编辑页面*/
+.editorbtn{
+    text-align: center;
 }

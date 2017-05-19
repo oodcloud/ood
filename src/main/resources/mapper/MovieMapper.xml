@@ -248,6 +248,24 @@
         delete from movie
         where m_id = #{mId,jdbcType=INTEGER}
     </delete>
+
+
+
+
+    <delete id="DeleteVideoDatas"  parameterType="java.lang.Integer">
+
+        delete from movie where m_id
+        in
+        <foreach item="mid" collection="array" open="(" separator="," close=")">
+            #{mid}
+        </foreach>
+
+    </delete>
+    <delete id="DeleteVideoData">
+
+         delete from movie where m_id=#{mid}
+
+    </delete>
     <insert id="insert" parameterType="cn.generator.pojo.MovieWithBLOBs">
         <!--
           WARNING - @mbggenerated
@@ -668,6 +686,28 @@
         m_downfrom = #{mDownfrom,jdbcType=VARCHAR}
         where m_id = #{mId,jdbcType=INTEGER}
     </update>
+    <update id="UpdataLevelVideoDatas">
+
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update movie
+            <set>
+                m_level=${item.level}
+            </set>
+            where m_id = ${item.mid}
+        </foreach>
+    </update>
+    <update id="UpdataSortVideoDatas">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update movie
+            <set>
+                m_class=${item.mclass}
+            </set>
+            where m_id = ${item.mid}
+        </foreach>
+
+    </update>
+
+
 
 
 </mapper>

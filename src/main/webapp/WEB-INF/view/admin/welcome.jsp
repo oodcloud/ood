@@ -66,14 +66,6 @@
             </fieldset>
         </blockquote>
 
-        <blockquote class="layui-elem-quote">
-            <fieldset class="layui-elem-field">
-                <legend>开发使用到的框架信息</legend>
-                <div class="layui-field-box">
-                    ${Usejar}
-                </div>
-            </fieldset>
-        </blockquote>
 
         <blockquote class="layui-elem-quote">
             <fieldset class="layui-elem-field">

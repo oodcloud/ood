@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>登录与注册</title>
+    <title>内涵三十秒-登录</title>
     <jsp:include page="../home_include.jsp"/>
 </head>
 <body class="bg-info dker">

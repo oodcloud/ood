@@ -20,7 +20,6 @@
 
 
     <div class="layui-field-box">
-        <%--<form class="layui-form layui-form-pane" action="/admin/data/query" method="post">--%>
         <form class="layui-form" action="">
 
             <div class="layui-form-item">
@@ -138,6 +137,36 @@
 <div id="dynamicsortpage"></div>
 
 <script>
+
+    //单个删除
+    function singledel(mId) {
+        layui.use('layer',function () {
+            var layer=layui.layer
+                , $ = layui.jquery;
+
+            layer.alert('确定要删除视频ID为'+mId+'的数据吗？', function(index) {
+                $.get('/admin/data/singledel',
+                    {
+                        mid:mId
+                    },
+                    function (res) {
+                        if(res.code==200)
+                        {
+                            layer.msg("删除成功！！");
+                            window.location.reload(true);
+
+                        }else {
+                                layer.msg("删除失败！！");
+                        }
+                    });
+                layer.close(index);
+            });
+
+        })
+
+    }
+
+
     layui.use(['laypage', 'form', 'element', 'laydate', 'layer'], function () {
         var form = layui.form()
             , layer = layui.layer,
@@ -170,7 +199,7 @@
                 function (res) {
                     pagesize = res.pagesize;
                     $.each(res.videodata, function (idx, item) {
-                        $("#videodatas").append('<tr><td><input type="checkbox" name="videoid" value="'+item.mId+'" id="videoid" lay-skin="primary" lay-filter="selectid"></td><td>' + item.mId + '</td><td><a target="_blank" href="/v_show/id_'+item.mPlayurl+'">' + item.mName + '</a></td><td>' + item.cSort + '</td><td>' + item.mPlayfrom + '</td><td>' + item.mLevel + '(默认不推荐下是0)</td><td>' + item.addtime + '</td><td><a href="/admin/data/update/' + item.mId + '">修改</a> | <a href="/admin/data/del/' + item.mId + ' onclick="return confirm(&quot;确定要删除吗?&quot;)">删除</a></td></tr>');
+                        $("#videodatas").append('<tr><td><input type="checkbox" name="videoid" value="'+item.mId+'" id="videoid" lay-skin="primary" lay-filter="selectid"></td><td>' + item.mId + '</td><td><a target="_blank" href="/v_show/id_'+item.mPlayurl+'">' + item.mName + '</a></td><td>' + item.cSort + '</td><td>' + item.mPlayfrom + '</td><td>' + item.mLevel + '(默认不推荐下是0)</td><td>' + item.addtime + '</td><td><a href="/admin/data/editor/'+item.mId+'">修改</a> | <a  href="javascript:void(0)" onclick="singledel('+item.mId+')" >删除</a></td></tr>');
                     })
                     form.render('checkbox');
                 });
@@ -192,7 +221,7 @@
                         },
                         function (res) {
                             $.each(res.videodata, function (idx, item) {
-                                $("#videodatas").append('<tr><td><input type="checkbox" name="videoid" id="videoid" value="'+item.mId+'" lay-skin="primary"lay-filter="selectid"></td><td>' + item.mId + '</td><td><a target="_blank" href="/v_show/id_'+item.mPlayurl+'">' + item.mName + '</a></td><td>' + item.cSort + '</td><td>' + item.mPlayfrom + '</td><td>' + item.mLevel + '(默认不推荐下是0)</td><td>' + item.addtime + '</td><td><a href="/admin/data/update/' + item.mId + '">修改</a> | <a href="/admin/data/del/' + item.mId + ' onclick="return confirm(&quot;确定要删除吗?&quot;)">删除</a></td></tr>');
+                                $("#videodatas").append('<tr><td><input type="checkbox" name="videoid" id="videoid" value="'+item.mId+'" lay-skin="primary"lay-filter="selectid"></td><td>' + item.mId + '</td><td><a target="_blank" href="/v_show/id_'+item.mPlayurl+'">' + item.mName + '</a></td><td>' + item.cSort + '</td><td>' + item.mPlayfrom + '</td><td>' + item.mLevel + '(默认不推荐下是0)</td><td>' + item.addtime + '</td><td><a href="/admin/data/editor/'+item.mId+'">修改</a> | <a href="javascript:void(0)" onclick="singledel('+item.mId+')">删除</a></td></tr>');
                             })
                             form.render('checkbox');
                         });
@@ -203,21 +232,11 @@
             return false;
         });
         //videodata中批量删除显隐推荐分类设置
-
-        form.on('checkbox(selectid)', function(data){
-
-
-            console.log(data.elem.checked); //是否被选中，true或者false
-            console.log(data.value); //复选框value值，也可以通过data.elem.value得到
-
-
-        });
         form.on('submit(btndel)', function (data) {
             var chk_value =[];
             $('input[name="videoid"]:checked').each(function(){
                 chk_value.push($(this).val());
             });
-            layer.msg(JSON.stringify(chk_value));
             layer.alert('确定删除？', function(index){
                 $.get('/admin/data/del',
                     {
@@ -230,9 +249,16 @@
                         window.location.reload(true);
 
                     }else {
-                        layer.msg("删除失败！！");
+                        if (res.code==100)
+                        {
+                            layer.msg("部分插入成功！！");
+                            window.location.reload(true);
+                        }
+                        if (res.code==300)
+                        {
+                            layer.msg("删除失败！！");
+                        }
                     }
-
                         form.render('checkbox');
                     });
 
@@ -244,14 +270,46 @@
 
 
         form.on('submit(btnLevel)', function (data) {
-            layer.alert('<select id="val" name="val"><option value="">请选择推荐</option><option value="1">推荐1</option><option value="2">推荐2</option><option value="3">推荐3</option><option value="4">推荐4</option><option value="5">推荐5</option><option value="0">取消推荐</option></select>', function(index){
 
+            var chk_value =[];
+            $('input[name="videoid"]:checked').each(function(){
+                chk_value.push($(this).val());
+            });
+            layer.alert('<select id="choicelevel" name="val"><option value="">请选择推荐</option><option value="1">推荐1</option><option value="2">推荐2</option><option value="3">推荐3</option><option value="4">推荐4</option><option value="5">推荐5</option><option value="0">取消推荐</option></select>', function(index){
+                $.get('/admin/data/updatalevel',
+                    {
+                        midlist:chk_value,
+                        level:$("#choicelevel").val()
+                    },
+                    function (res) {
+                        if(res.code==200)
+                        {
+                            layer.msg("删除成功！！");
+                            window.location.reload(true);
+
+                        }else {
+                            if (res.code==100)
+                            {
+                                layer.msg("部分插入成功！！");
+                                window.location.reload(true);
+                            }
+                            if (res.code==300)
+                            {
+                                layer.msg("删除失败！！");
+                            }
+                        }
+                        form.render('checkbox');
+                    });
 
                 layer.close(index);
             });
             return false;
         });
         form.on('submit(btnType)', function (data) {
+            var chk_value =[];
+            $('input[name="videoid"]:checked').each(function(){
+                chk_value.push($(this).val());
+            });
             layer.open({
                 type: 1
                 ,content: $('#mclass')
@@ -259,10 +317,33 @@
                 ,btnAlign: 'c'
                 ,shade: 0
                 ,area: ['210px', '160px']
-                ,yes: function(){
+                ,yes: function(index){
 
+                    $.get('/admin/data/updatasort',
+                        {
+                            midlist:chk_value,
+                            mclass:$("#mclass").val()
+                        },
+                        function (res) {
+                            if(res.code==200)
+                            {
+                                layer.msg("删除成功！！");
+                                window.location.reload(true);
 
-                    layer.closeAll();
+                            }else {
+                                if (res.code==100)
+                                {
+                                    layer.msg("部分插入成功！！");
+                                    window.location.reload(true);
+                                }
+                                if (res.code==300)
+                                {
+                                    layer.msg("删除失败！！");
+                                }
+                            }
+                            form.render('checkbox');
+                        });
+                    layer.close(index);
                 }
             });
 
@@ -292,12 +373,15 @@
                     },
                     function (res) {
                         $.each(res.videodata, function (idx, item) {
-                            $("#videodatas").append('<tr><td><input type="checkbox" name="videoid" id="videoid" value="'+item.mId+'" lay-skin="primary" lay-filter="selectid"></td><td>' + item.mId + '</td><td><a target="_blank" href="/v_show/id_'+item.mPlayurl+'">' + item.mName + '</a></td><td>' + item.cSort + '</td><td>' + item.mPlayfrom + '</td><td>' + item.mLevel + '(默认不推荐下是0)</td><td>' + item.addtime + '</td><td><a href="/admin/data/update/' + item.mId + '">修改</a> | <a href="/admin/data/del/' + item.mId + ' onclick="return confirm(&quot;确定要删除吗?&quot;)">删除</a></td></tr>');
+                            $("#videodatas").append('<tr><td><input type="checkbox" name="videoid" id="videoid" value="'+item.mId+'" lay-skin="primary" lay-filter="selectid"></td><td>' + item.mId + '</td><td><a target="_blank" href="/v_show/id_'+item.mPlayurl+'">' + item.mName + '</a></td><td>' + item.cSort + '</td><td>' + item.mPlayfrom + '</td><td>' + item.mLevel + '(默认不推荐下是0)</td><td>' + item.addtime + '</td><td><a href="/admin/data/editor/'+item.mId+'">修改</a> | <a href="javascript:void(0)" onclick="singledel('+item.mId+')" >删除</a></td></tr>');
                         })
                         form.render('checkbox');
                     });
             }
         });
+
+
+
 
 
         //全选

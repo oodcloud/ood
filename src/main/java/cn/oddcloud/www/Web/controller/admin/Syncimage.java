@@ -25,24 +25,8 @@ public class Syncimage {
     public String  index(){
       String  imagespath= ConfigProperties.getIsSycnImg(getClass(),"imgpath")+ File.separator
                 + DateUtils.dateToString(System.currentTimeMillis());
-        try {
-            ServerSocket serverSocket=new ServerSocket(5000);
-            while (true)
-            {
-                Socket socket= serverSocket.accept();
-
-                OutputStream outputStream=  socket.getOutputStream();
 
 
-
-
-            }
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//
 //        DownloadUtils.DOWN.imgDownUrl("",imagespath);
         return "/admin/syncimage";
     }

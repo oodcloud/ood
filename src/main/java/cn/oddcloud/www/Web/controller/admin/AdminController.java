@@ -2,6 +2,9 @@ package cn.oddcloud.www.Web.controller.admin;
 
 import cn.oddcloud.www.Utils.VideoDataLoadType;
 import cn.oddcloud.www.Web.service.MovieService;
+import cn.oddcloud.www.Web.service.RoleService;
+import cn.oddcloud.www.Web.service.UserService;
+import cn.oddcloud.www.Web.service.VideoDataPageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +22,11 @@ import java.util.Properties;
 @RequestMapping(value = "/admin")
 public class AdminController {
     @Resource
-    private MovieService movieService;
+    private UserService userService;
+    @Resource
+    private VideoDataPageService videoDataPageService;
+    @Resource
+    private RoleService roleService;
 
     @RequestMapping("/index")
     public String adminIndex(Model model) {
@@ -47,14 +54,6 @@ public class AdminController {
     }
 
     /**
-     *包括信息：
-     * 查询
-     * 视频分类m_class
-     * 视频地区m_area
-     * 视频语言m_lang
-     * 视频播放器m_playfrom
-     * 视频推荐m_level
-     * 视频显隐m_hide 1显0隐
      * 最初打开视频数据时的视频数据
      *
      */
@@ -62,16 +61,107 @@ public class AdminController {
     public String videodata(Model model)
     {
 
-        model.addAttribute("m_class",movieService.getVideoClasses());
-        model.addAttribute("m_area",movieService.getVideoAreas());
-        model.addAttribute("m_lang",movieService.getVideoLangs());
-        model.addAttribute("m_playfrom",movieService.getVideoPlayfroms());
-        model.addAttribute("pagesize",movieService.getDynamicQueryMovieMoreInVideoDataPageSize(null,null,null,null,null,null,null));// 页面总数
+        model.addAttribute("m_class",videoDataPageService.getVideoClasses());
+        model.addAttribute("m_area",videoDataPageService.getVideoAreas());
+        model.addAttribute("m_lang",videoDataPageService.getVideoLangs());
+        model.addAttribute("m_playfrom",videoDataPageService.getVideoPlayfroms());
+        model.addAttribute("pagesize",videoDataPageService.getDynamicQueryMovieMoreInVideoDataPageSize(null,null,null,null,null,null,null));// 页面总数
 
         return "/admin/adminvideodata";
     }
 
 
+    /**
+     * 管理员菜单相关
+     *
+     */
 
+    @RequestMapping("/usermanage")
+    public String usermanage(Model model){
+      model.addAttribute("rolelist",roleService.FindAll());
+      model.addAttribute("userlist",userService.FindUserAdmin());
+        return "/admin/usermanage";
+    }
+    /**
+     *
+     * 角色管理
+     */
+    @RequestMapping("/rolemanage")
+    public String rolemanage(Model model){
+
+        model.addAttribute("rolelist",roleService.FindAll());
+        return "/admin/rolemanage";
+    }
+
+
+
+    /**
+     * 添加管理员
+     * @return
+     */
+    @RequestMapping("/addadminuser")
+    public String addadminuser(){
+
+
+
+
+        return "/admin/addadmin";
+    }
+
+//    /**
+//     * 修改密码
+//     * @return
+//     */
+//    @RequestMapping("/changepassworld")
+//    public String changepassworld(){
+//
+//
+//        return "/admin/changepassword";
+//    }
+//
+//
+//    /**
+//     * 删除管理员
+//     * @return
+//     */
+//    @RequestMapping("/deleteadmin")
+//    public String deleteadmin(){
+//
+//
+//        return "/admin/deleteadmin";
+//    }
+//
+//    /**
+//     * 设置权限
+//     * @return
+//     */
+//    @RequestMapping("/settingauth")
+//    public String settingauth(){
+//
+//
+//        return "/admin/settingauth";
+//    }
+
+    /**
+     * 在线采集
+     * @return
+     */
+    @RequestMapping("/collectunion")
+    public String collectunion(){
+
+
+        return "/admin/collectunion";
+    }
+
+    /**
+     * 定时采集
+     * @return
+     */
+    @RequestMapping("/collecttimer")
+    public String collecttimer(){
+
+
+        return "/admin/collecttimer";
+    }
 
 }
