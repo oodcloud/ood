@@ -1,4 +1,4 @@
-package cn.oddcloud.www.Spider.Utils;
+package cn.oddcloud.www.Utils;
 
 import java.io.IOException;
 import java.io.InputStream;

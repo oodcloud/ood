@@ -81,7 +81,7 @@
 
   <select id="FindUserAdmin" resultType="cn.generator.pojo.UserWithRole">
 
-    select * FROM ood_user JOIN  ood_role on r_type=u_group
+    select * FROM ood_user JOIN  ood_role on r_id=u_group
 
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

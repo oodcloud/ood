@@ -33,7 +33,11 @@
 </div>
 <div class="video-postion">
     <video width="1120" height="630" controls="" autoplay="true" poster="${recommend.mPic}">
-        <source src="${playurl}" type="video/mp4">
+        <c:forEach items="${playurl}" var="item">
+
+            <source src="${item.cdn_url}" type="video/mp4">
+        </c:forEach>
+
     </video>
 </div>
 <div class="subplay">

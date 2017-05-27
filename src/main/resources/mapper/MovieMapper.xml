@@ -183,7 +183,8 @@
                 and m_hide=#{hide}
             </if>
             <if test="key!=null">
-                and m_name='%'+#{key}+'%'
+                and m_name like  concat('%',#{key},'%')
+
             </if>
 
         </trim>
@@ -216,7 +217,7 @@
                 and m_hide=#{hide}
             </if>
             <if test="key!=null">
-                and m_name='%'+#{key}+'%'
+                and m_name like  concat('%',#{key},'%')
             </if>
 
 
@@ -237,6 +238,11 @@
     <!--查询的总数-->
     <select id="getInitDataMoreMovieVideoPageSize" resultType="java.lang.Integer">
         SELECT count(*) FROM  movie JOIN   movie_class on m_class=c_sort
+    </select>
+    <!--图片同步-->
+    <select id="AllNotSycnImgVideoData" resultType="cn.generator.pojo.MovieWithBLOBs">
+--         SELECT m_id,m_pic FROM movie where m_pic  like '%http://%'
+        SELECT m_pic,m_id FROM movie   WHERE MATCH (m_pic) AGAINST ('http'  IN BOOLEAN MODE);
     </select>
 
 
@@ -707,7 +713,12 @@
 
     </update>
 
+    <update id="UpdataAllNotSycnImgVideoData">
+        update movie
+        set m_pic=#{mPic}
 
+        where m_id = #{mId}
+    </update>
 
 
 </mapper>

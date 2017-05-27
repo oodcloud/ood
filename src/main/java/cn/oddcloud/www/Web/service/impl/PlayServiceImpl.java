@@ -5,6 +5,7 @@ import cn.generator.pojo.MovieDiscuss;
 import cn.generator.pojo.MovieWithBLOBs;
 import cn.oddcloud.www.Parse.YoukuParseApi;
 
+import cn.oddcloud.www.Parse.YoukuParseEnitity;
 import cn.oddcloud.www.Utils.TypeUtils;
 import cn.oddcloud.www.Web.Entity.PlayContentEntity;
 import cn.oddcloud.www.Web.service.PlayService;
@@ -26,10 +27,10 @@ public class PlayServiceImpl implements PlayService{
     private YoukuParseApi youkuParseApi;
 
     @Override
-    public String getPlayRealUrl(String url) {
+    public List<YoukuParseEnitity.SegsBean> getPlayRealUrl(String url) {
 
 
-        return  youkuParseApi.parsevidhd0mp4(url);
+        return  youkuParseApi.parseNewYoukuUrl(url);
     }
 
     @Override

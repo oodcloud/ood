@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.generator.mapper.ScheduleJobMapper">
+    <insert id="insert" parameterType="cn.generator.pojo.ScheduleJob">
+        INSERT INTO schedule_job (job_name,job_group,job_trigger,status,cron_expression,description,gmt_create,gmt_modify)VALUES (#{jobName},#{jobGroup},#{jobTrigger},#{status},#{cronExpression},#{description},#{gmtCreate},#{gmtModify})
+    </insert>
+    <update id="update">
+        UPDATE schedule_job SET
+         job_name=#{jobName},
+         job_group=#{jobGroup},
+         job_trigger=#{jobTrigger},
+         status=#{status},
+         cron_expression=#{cronExpression},
+         description=#{description},
+         gmt_create=#{gmtCreate},
+         gmt_modify=#{gmtModify}
+    </update>
+    <delete id="delete">
+     DELETE  FROM  schedule_job WHERE  schedule_job_id=#{scheduleJobId}
+
+    </delete>
+    <select id="queryList" resultType="cn.generator.pojo.ScheduleJob">
+
+     SELECT * FROM schedule_job
+    </select>
+    <select id="get" resultType="cn.generator.pojo.ScheduleJob">
+         SELECT * FROM schedule_job WHERE schedule_job_id=#{scheduleJobId}
+    </select>
+</mapper>

@@ -5,6 +5,7 @@ package cn.oddcloud.www.Web.service;
  */
 
 import cn.generator.pojo.OodRole;
+import cn.generator.pojo.OodUserWithBLOBs;
 
 import java.util.List;
 
@@ -23,6 +24,11 @@ import java.util.List;
 
 
 public interface RoleService {
-    int addrole();//添加角色
+
     List<OodRole> FindAll();//查询所有角色
+
+    int Save(OodRole oodRole);
+    OodRole SelectRoleById(int id);
+    int DelRole(int id);
+    int UpdataRole(OodRole oodRole);
 }

@@ -1,12 +1,11 @@
 package cn.oddcloud.www.Spider.Pipeline;
 
 import cn.generator.pojo.MovieWithBLOBs;
-import cn.oddcloud.www.Spider.Utils.CommonUtils;
-import cn.oddcloud.www.Spider.Utils.ConfigProperties;
-import cn.oddcloud.www.Spider.Utils.RandomNubHits;
-import cn.oddcloud.www.Spider.Utils.SycnImgUtils;
+import cn.oddcloud.www.Aop.MovieDataShowByAop;
+import cn.oddcloud.www.Utils.ConfigProperties;
+import cn.oddcloud.www.Utils.RandomNubHits;
 import cn.oddcloud.www.Utils.DateUtils;
-import cn.oddcloud.www.Utils.DownloadUtils;
+import cn.oddcloud.www.Web.service.ImgAsycnService;
 import cn.oddcloud.www.Web.service.MovieService;
 import com.alibaba.fastjson.JSON;
 import us.codecraft.webmagic.ResultItems;
@@ -16,6 +15,7 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -236,29 +236,26 @@ public class MovieBasePipline implements Pipeline {
             movieWithBLOBs.setmTime(getmTime());
             movieWithBLOBs.setmDownfrom(getmDownfrom());
             movieWithBLOBs.setmDownurl(getmDownurl());
-
             //同步图片
             if (isSycnImgflag.equals("true")) {
-                DownloadUtils.DOWN.imgDownUrl(images.get(i), imagespath);
-                movieWithBLOBs.setmPic(CommonUtils.picpath(images.get(i)));
+                List<MovieWithBLOBs> movieWithBLOBss=new ArrayList<>();
+                movieWithBLOBss.add(movieWithBLOBs);
+                ImgAsycnService.DOWN.imgDownUrl(getMovieService(), movieWithBLOBss, imagespath);
+                movieWithBLOBss.clear();
             }
-
-
             //入库检查是否存在相同视频 以playurl标准
             int count = getMovieService().selectplayurl(movieWithBLOBs.getmPlayurl(), movieWithBLOBs.getmClass());
-            System.out.println(">>>>>>>>>>>>>>>"+movieWithBLOBs.getmPlayurl()+">>>>>>>>>>>>"+movieWithBLOBs.getmClass()+">>>>>>>>>>count:"+count);
-
-
             if (count == 0)
+            {
                 getMovieService().add(movieWithBLOBs);//插入数据
+            }else {
+                getMovieService().repeatadd(movieWithBLOBs);//记录重复添加的数据
+            }
 
 
 
         }
-
     }
-
-
     public static class Builder {
         private MovieService movieService;//保存数据库的公共接口
 

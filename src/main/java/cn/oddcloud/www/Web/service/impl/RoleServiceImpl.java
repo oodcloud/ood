@@ -15,13 +15,30 @@ import java.util.List;
 public class RoleServiceImpl  implements RoleService{
     @Resource
     private OodRoleMapper oodRoleMapper;
-    @Override
-    public int addrole() {
-        return 0;
-    }
+
 
     @Override
     public List<OodRole> FindAll() {
         return oodRoleMapper.FindAll();
+    }
+
+    @Override
+    public int Save(OodRole oodRole) {
+        return oodRoleMapper.insert(oodRole);
+    }
+
+    @Override
+    public OodRole SelectRoleById(int id) {
+        return oodRoleMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int DelRole(int id) {
+        return oodRoleMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int UpdataRole(OodRole oodRole) {
+        return oodRoleMapper.updateByPrimaryKeySelective(oodRole);
     }
 }

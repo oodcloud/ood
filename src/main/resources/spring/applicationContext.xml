@@ -2,10 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans  
 http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 http://www.springframework.org/schema/context  
-http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+http://www.springframework.org/schema/context/spring-context-3.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--上面的xsd最好和当前使用的Spring版本号一致,如果换了Spring版本,这个最好也跟着改-->
 
@@ -24,8 +25,26 @@ http://www.springframework.org/schema/context/spring-context-3.2.xsd">
     <!--http://blog.csdn.net/u012763117/article/details/17253849-->
     <!--http://casheen.iteye.com/blog/295348-->
     <!--http://blog.csdn.net/zhang854429783/article/details/6785574-->
-    <context:component-scan base-package="cn.oddcloud.**.service.*,cn.oddcloud.www.Parse,cn.oddcloud.www.Utils"/>
+    <context:component-scan base-package="cn.oddcloud.**.service.*,cn.oddcloud.www.Parse,cn.oddcloud.www.Utils,cn.oddcloud.www.Quartz"/>
     <!--<context:component-scan base-package="cn.*"/>-->
+    <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" />
+
+    <bean id="videodataaop" class="cn.oddcloud.www.Aop.MovieDataShowByAop"/>
+    <bean id="imgdataaop" class="cn.oddcloud.www.Aop.AsycnImgDataShowByAop"></bean>
+    <aop:config>
+        <aop:aspect id="videoaopaspect" ref="videodataaop">
+            <aop:pointcut id="movieservice" expression="execution(* cn.oddcloud.www.Web.service.impl.MovieServiceImpl.add(cn.generator.pojo.MovieWithBLOBs)) or execution(* cn.oddcloud.www.Web.service.impl.MovieServiceImpl.repeatadd(cn.generator.pojo.MovieWithBLOBs))"></aop:pointcut>
+            <!--<aop:around method="getMovieStatus" pointcut-ref="movieservice"></aop:around>-->
+            <aop:after-returning method="movieafterreturning" pointcut-ref="movieservice" returning="rex"></aop:after-returning>
+        </aop:aspect>
+
+        <aop:aspect id="imgaopaspect" ref="imgdataaop">
+            <aop:pointcut id="imgservice" expression="execution(* cn.oddcloud.www.Web.service.impl.MovieServiceImpl.UpdataAllNotSycnImgVideoData(..))"></aop:pointcut>
+            <!--<aop:around method="getMovieStatus" pointcut-ref="movieservice"></aop:around>-->
+            <aop:after-returning method="imgafterreturning" pointcut-ref="imgservice" returning="rex"></aop:after-returning>
+        </aop:aspect>
+
+    </aop:config>
 
 
 </beans>

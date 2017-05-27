@@ -84,7 +84,7 @@
                     uName: $('input[name="loginName"]').val(),
                     uPassword: $('input[name="password"]').val(),
                     uGroup: $('input[name="role"]:checked').val(),
-                    uFlag: $('input[name="flagopen"]:checked').val(),
+                    uStatus: $('input[name="flagopen"]:checked').val(),
                 },
                 function (res) {
                     if (res.code == 200) {

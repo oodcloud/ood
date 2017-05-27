@@ -34,7 +34,7 @@
                     <tr>
                         <th>ID</th>
                         <th>角色名</th>
-                        <th>添加时间</th>
+                        <th>拥有权限</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -44,12 +44,16 @@
                         <tr>
                             <td>${item.rId}</td>
                             <td>${item.rName}</td>
-                            <td>${item.rAddtime}</td>
+                            <td>${item.rPower}</td>
                             <td>
                                 <div class="layui-btn-group">
-                                    <button data-url="/a/sys/user/form?id=1012" data-type="tabAdd" class="do-action layui-btn site-demo-active layui-btn-small">分配权限</button>
-                                    <button data-url="/a/sys/role/form?id=1" class="do-action layui-btn layui-btn-small">编辑</button>
-                                    <button data-url="/a/sys/role/do_delete?id=1" data-type="ajaxDelete" class="do-action layui-btn layui-btn-small">删除</button>
+
+                                    <button data-url="/admin/role/editor/${item.rId}"
+                                            class="do-action layui-btn editor-active layui-btn-small">编辑
+                                    </button>
+                                    <button data-url="/admin/role/del/${item.rId}" data-type="ajaxDelete"
+                                            class="do-action del-active layui-btn layui-btn-small">删除
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -63,7 +67,7 @@
         </div>
         <div class="layui-tab-item">
 
-            <form id="inputForm" class="layui-form" action="/a/sys/role/do_save" method="post">
+            <form id="inputForm" class="layui-form" action="" method="post">
                 <input id="id" name="id" type="hidden" value="0">
                 <div class="layui-form-item">
                     <label class="layui-form-label">名称</label>
@@ -72,28 +76,18 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">英文名</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="enname" value="" lay-verify="required" class="layui-input">
-                    </div>
-                    <div class="layui-form-mid layui-word-aux">角色标识，系统唯一（例如：project_manager）</div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">是否启用</label>
+                    <label class="layui-form-label">权限设置</label>
                     <div class="layui-input-block">
-                        <input type="hidden" id="J_hdn_status" name="status" value="1">
-                        <input type="checkbox" checked="" lay-verify="required" lay-skin="switch" lay-filter="F_switch" data-hdnid="#J_hdn_status" lay-text="ON|OFF"><div class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>ON</em><i></i></div>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">角色描述</label>
-                    <div class="layui-input-inline">
-                        <textarea placeholder="请输入角色描述" name="remark" class="layui-textarea"></textarea>
+                        <input type="checkbox" name="power" value="视频"  title="视频" checked="">
+                        <input type="checkbox" name="power" value="采集" title="采集" checked="">
+                        <input type="checkbox" name="power" value="角色管理" title="角色管理" checked="">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" data-listurl="/a/sys/role/" lay-submit="" lay-filter="F_do_ajax_submit">确认提交</button>
+                        <button class="layui-btn" data-listurl="/a/sys/role/" lay-submit=""
+                                lay-filter="F_do_ajax_submit">确认提交
+                        </button>
                     </div>
                 </div>
             </form>
@@ -102,40 +96,80 @@
 </div>
 
 <script type="text/javascript">
-    layui.use(['element','form', 'layedit', 'laydate'], function(){
+    Date.prototype.format = function (format) {
+        var o = {
+            "M+": this.getMonth() + 1, //month
+            "d+": this.getDate(),    //day
+            "h+": this.getHours(),   //hour
+            "m+": this.getMinutes(), //minute
+            "s+": this.getSeconds(), //second
+            "q+": Math.floor((this.getMonth() + 3) / 3),  //quarter
+            "S": this.getMilliseconds() //millisecond
+        }
+        if (/(y+)/.test(format)) format = format.replace(RegExp.$1,
+            (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)if (new RegExp("(" + k + ")").test(format))
+            format = format.replace(RegExp.$1,
+                RegExp.$1.length == 1 ? o[k] :
+                    ("00" + o[k]).substr(("" + o[k]).length));
+        return format;
+    }
+    layui.use(['element', 'form', 'layedit', 'laydate'], function () {
         var $ = layui.jquery
-            ,layer = layui.layer
-            ,element = layui.element()
-            ,form = layui.form()
-            ,userRoles = []
-            ,laydate = layui.laydate;;
+            , layer = layui.layer
+            , element = layui.element()
+            , form = layui.form()
+            , userRoles = []
+            , laydate = layui.laydate;
+        ;
 
-        //触发事件
-        var active = {
-            tabAdd: function(){
-                //新增一个Tab项
-                element.tabAdd('F_sub_tab', {
-                    title: '权限分配' //用于演示
-                    ,content: '<form class="layui-form" action=""><label class="layui-form-label">权限设置</label><div class="layui-input-block"><input type="checkbox" title="视频" checked=""><input type="checkbox" title="采集" checked=""><input type="checkbox" title="角色管理" checked=""></div><button class="layui-btn">保存</button> </form>'
-                    ,id: 2212 //实际使用一般是规定好的id，这里以时间戳模拟下
-                })
-                element.tabChange('F_sub_tab', '2212');
-                form.render('checkbox');
-            }
 
-        };
-
-        element.on('tab(F_sub_tab)', function(data){
-
-            if (data.index!=2)
-            {
-                element.tabDelete('F_sub_tab', '2212');
-            }
+        $('.editor-active').on('click', function () {
+            var othis = $(this), type = othis.data('type') ,url=othis.data("url");
+            window.location.href=url;
         });
 
-        $('.site-demo-active').on('click', function(){
-            var othis = $(this), type = othis.data('type');
-            active[type] ? active[type].call(this, othis) : '';
+
+        form.on('submit(F_do_ajax_submit)', function (data) {
+            var d = new Date();
+            var time = d.format('yyyy-MM-dd hh:mm:ss');
+            var chk_value =[];
+            $('input[name="power"]:checked').each(function(){
+                chk_value.push($(this).val());
+            });
+            $.post('/admin/role/save',
+                {
+                    rName: $('input[name="name"]').val(),
+                    rPower: chk_value.toString(),
+                    rAddtime: time,
+                },
+                function (res) {
+                    if (res.code == 200) {
+
+                        layer.msg("角色创建成功！！");
+                    } else {
+                        layer.msg("角色创建失败，该用户已经存在");
+                    }
+
+                }, "json");
+            return false;
+        });
+
+
+        $(".del-active").on('click', function () {
+            var othis = $(this), url = othis.data("url");
+            $.get(url,
+                function (res) {
+                    if (res.code==200)
+                    {
+                        layer.msg("删除成功！！");
+                        location.reload();
+                    }
+                    else {
+                        layer.msg("删除失败！！")
+                    }
+                });
+
         });
     });
 </script>

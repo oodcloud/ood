@@ -1,16 +1,18 @@
 package cn.oddcloud.www.Web.controller.admin;
 
+import cn.generator.pojo.MovieWithBLOBs;
+import cn.oddcloud.www.Utils.ConfigProperties;
+import cn.oddcloud.www.Utils.DateUtils;
 import cn.oddcloud.www.Utils.VideoDataLoadType;
-import cn.oddcloud.www.Web.service.MovieService;
-import cn.oddcloud.www.Web.service.RoleService;
-import cn.oddcloud.www.Web.service.UserService;
-import cn.oddcloud.www.Web.service.VideoDataPageService;
+import cn.oddcloud.www.Web.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -27,6 +29,8 @@ public class AdminController {
     private VideoDataPageService videoDataPageService;
     @Resource
     private RoleService roleService;
+
+
 
     @RequestMapping("/index")
     public String adminIndex(Model model) {
@@ -69,6 +73,17 @@ public class AdminController {
 
         return "/admin/adminvideodata";
     }
+/**
+ *
+ * 同步图片
+ */
+    @RequestMapping("/syncimg")
+    public String syncimg()
+    {
+
+        return "redirect:/admin/api/spider/imgdata";
+    }
+
 
 
     /**
@@ -94,54 +109,6 @@ public class AdminController {
     }
 
 
-
-    /**
-     * 添加管理员
-     * @return
-     */
-    @RequestMapping("/addadminuser")
-    public String addadminuser(){
-
-
-
-
-        return "/admin/addadmin";
-    }
-
-//    /**
-//     * 修改密码
-//     * @return
-//     */
-//    @RequestMapping("/changepassworld")
-//    public String changepassworld(){
-//
-//
-//        return "/admin/changepassword";
-//    }
-//
-//
-//    /**
-//     * 删除管理员
-//     * @return
-//     */
-//    @RequestMapping("/deleteadmin")
-//    public String deleteadmin(){
-//
-//
-//        return "/admin/deleteadmin";
-//    }
-//
-//    /**
-//     * 设置权限
-//     * @return
-//     */
-//    @RequestMapping("/settingauth")
-//    public String settingauth(){
-//
-//
-//        return "/admin/settingauth";
-//    }
-
     /**
      * 在线采集
      * @return
@@ -161,7 +128,7 @@ public class AdminController {
     public String collecttimer(){
 
 
-        return "/admin/collecttimer";
+        return "redirect:/admin/schedulejob/listschedulejob";
     }
 
 }

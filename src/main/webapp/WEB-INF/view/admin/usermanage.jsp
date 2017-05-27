@@ -52,12 +52,12 @@
                             <td>${item.uName}</td>
                             <td>${item.rName}</td>
                             <td>
-                                <c:if test="${item.uFlag==true}">
+                                <c:if test="${item.uStatus==true}">
 
                                     <i class="layui-icon menu-isshow menu-isshow_y"></i>
                                 </c:if>
 
-                                <c:if test="${item.uFlag==false}">
+                                <c:if test="${item.uStatus==false}">
                                     <i class="layui-icon" style="font-size: 20px; color: #1AA194;">&#x1006;</i>
                                 </c:if>
 
@@ -170,13 +170,13 @@
 
         form.on('submit(F_jquery_ajax_submit)', function (data) {
             var d = new Date();
-            var time = d.format('yyyy-MM-dd');
+            var time = d.format('yyyy-MM-dd hh:mm:ss');
             $.post('/admin/user/save',
                 {
                     uName: $('input[name="loginName"]').val(),
                     uPassword: $('input[name="password"]').val(),
                     uGroup: $('input[name="role"]:checked').val(),
-                    uFlag: $('input[name="flagopen"]:checked').val(),
+                    uStatus: $('input[name="flagopen"]:checked').val(),
                     uRegtime: time,
                 },
                 function (res) {

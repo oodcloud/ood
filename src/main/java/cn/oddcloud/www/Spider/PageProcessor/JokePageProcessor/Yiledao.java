@@ -28,7 +28,7 @@ public class Yiledao extends AbstractPageProcessor {
             String[] a = val[i].split("\\/");
             urllist.add(a[3].split("\\.")[0]);//在图片中那其优酷数据
             val[i] = "http://www.yiledao.com" + val[i];
-//           DownloadUtils.DOWN.imgDownUrl( val[i],"./imgs",val[i].hashCode()+System.currentTimeMillis()+".jpg");
+
         }
         images.clear();
         images = Arrays.asList(val);

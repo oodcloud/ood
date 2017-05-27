@@ -505,6 +505,7 @@
 .play-sideCol{
     width: 315px;
     height: 1260px;
+    margin-bottom: 50px;
     float: right;
     background: #ffffff;
 }

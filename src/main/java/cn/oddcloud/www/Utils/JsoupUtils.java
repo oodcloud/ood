@@ -16,7 +16,7 @@ public class JsoupUtils {
   private static final int TIME_OUT = 10 * 1000;
 
   public static Document getDocWithPC(String url){
-    Document document = new Document("http://ictgu.cn");
+    Document document = new Document("http://www.youku.com/");
     try {
       document = Jsoup.connect(url).userAgent(UA_PC).timeout(TIME_OUT).ignoreContentType(true).get();
     } catch (IOException e) {
@@ -26,7 +26,7 @@ public class JsoupUtils {
   }
 
   public static Document getDocWithPhone(String url){
-    Document document = new Document("http://ictgu.cn");
+    Document document = new Document("http://www.youku.com/");
     try {
       document = Jsoup.connect(url).userAgent(UA_PHONE).timeout(TIME_OUT).ignoreContentType(true).get();
     } catch (IOException e) {
@@ -46,7 +46,7 @@ public class JsoupUtils {
   }
 
   public static Document getDocWithPC(String url, String cookie){
-    Document document = new Document("http://ictgu.cn");
+    Document document = new Document("http://www.youku.com/");
     try {
       document = Jsoup.connect(url).userAgent(UA_PHONE).timeout(TIME_OUT).header("Cookie", cookie).ignoreContentType(true).get();
     } catch (IOException e) {

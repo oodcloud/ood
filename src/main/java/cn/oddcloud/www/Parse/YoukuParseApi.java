@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,8 +21,9 @@ import java.util.regex.Pattern;
  */
 @Component
 public class YoukuParseApi {
-
-    private final static String VIDEO_INFO_API = "http://play-ali.youku.com/play/get.json?vid=%s&ct=12";
+//    https://ups.youku.com/ups/get.json?vid=%s&ccode=0401&client_ip=192.168.1.1&utid=RqdTEQmk9RsCAXxdxAjbzVmN&client_ts=1495708398
+    private final static String VIDEO_INFO_API2 = "https://ups.youku.com/ups/get.json?vid=%s&ccode=0401&client_ip=192.168.1.1&utid=RqdTEQmk9RsCAXxdxAjbzVmN&client_ts=1495708398";
+        private final static String VIDEO_INFO_API = "http://play-ali.youku.com/play/get.json?vid=%s&ct=12";
     private final static String VIDEO_PLAY = "http://pl.youku.com/playlist/m3u8?vid=%s&type=%s&ts=%s&keyframe=0&ep=%s&sid=%s&token=%s&ctype=12&ev=1&oip=%s";
     private final static String[] TYPE = {"flv", "mp4", "hd2", "hd3"};
 
@@ -30,12 +32,54 @@ public class YoukuParseApi {
     private static int[] e = {19, 1, 4, 7, 30, 14, 28, 8, 24, 17, 6, 35, 34, 16, 9, 10, 13, 22, 32, 29, 31, 21, 18, 3, 2, 23, 25, 27, 11, 20, 5, 15, 12, 0, 33, 26};
 
 
+
+    public List<YoukuParseEnitity.SegsBean> parseNewYoukuUrl(String vid){
+
+        String uvid = getVid("http://v.youku.com/v_show/id_" + vid + ".html");
+        String api = String.format(VIDEO_INFO_API2, uvid);
+        String resource = JsoupUtils.getDocWithPhone(api).text();
+        JSONObject get = JSONObject.parseObject(resource);
+        if (get.getJSONObject("data").getJSONArray("stream")==null)
+        {
+
+            return null;
+        }
+
+        JSONArray streams = get.getJSONObject("data").getJSONArray("stream");
+        String videodatas=JSON.toJSONString(streams);
+        System.out.println(videodatas);
+        List<YoukuParseEnitity> parseEnitityList=JSON.parseArray(videodatas,YoukuParseEnitity.class);
+//        flvhd  mp4hd   mp4hd2 mp4hd3 flvhd mp4hd
+
+        for (int i = 0; i < parseEnitityList.size(); i++) {
+            if ("mp4hd".equals(parseEnitityList.get(i).getStream_type()))
+            {
+                return parseEnitityList.get(i).getSegs();
+            }
+
+        }
+
+        for (int i = 0; i < parseEnitityList.size(); i++) {
+            if ("mp4hd2".equals(parseEnitityList.get(i).getStream_type()))
+            {
+                return parseEnitityList.get(i).getSegs();
+            }
+
+        }
+
+
+      return parseEnitityList.get(0).getSegs();
+
+
+    }
+
+
     public String parseurl(String url) {
 
         String vid = getVid(url);
         String api = String.format(VIDEO_INFO_API, vid);
         JSONObject get = JSONObject.parseObject(JsoupUtils.getDocWithPhone(api).text());
-
+        System.out.println(JSON.toJSONString(get));
         if (get.getJSONObject("data").getJSONObject("security") == null) {
             return "视频不存在";
         }

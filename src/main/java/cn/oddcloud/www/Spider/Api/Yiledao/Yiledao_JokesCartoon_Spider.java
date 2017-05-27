@@ -3,7 +3,7 @@ package cn.oddcloud.www.Spider.Api.Yiledao;
 import cn.oddcloud.www.Spider.Api.BaseApiSpider;
 import cn.oddcloud.www.Spider.PageProcessor.JokePageProcessor.Yiledao;
 import cn.oddcloud.www.Spider.Pipeline.MovieBasePipline;
-import cn.oddcloud.www.Spider.Utils.ConfigProperties;
+import cn.oddcloud.www.Utils.ConfigProperties;
 import cn.oddcloud.www.Spider.enums.SpiderWebSiteURL;
 import cn.oddcloud.www.Spider.enums.YiledaoInterfaceTargetURL;
 import cn.oddcloud.www.Spider.enums.YiledaoMatchURL;
@@ -28,12 +28,13 @@ public class Yiledao_JokesCartoon_Spider implements BaseApiSpider {
         return spider;
     }
     @Override
-    public void doAction(MovieService movieService) {
+    public long doAction(MovieService movieService) {
 
         spider.setScheduler(new QueueScheduler()
                 .setDuplicateRemover(new HashSetDuplicateRemover())).
                 addUrl(YiledaoInterfaceTargetURL.JOKESCARTOON.getUrl()).addPipeline(new MovieBasePipline.Builder(movieService).setmClass(ConfigProperties.type("搞笑动画",getClass())).newInstance()).
                 thread(5).runAsync();
+        return spider.getPageCount();
     }
 
     @Override

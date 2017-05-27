@@ -2,6 +2,7 @@ package cn.oddcloud.www.Web.controller.front;
 
 import cn.generator.pojo.Movie;
 import cn.generator.pojo.MovieWithBLOBs;
+import cn.oddcloud.www.Parse.YoukuParseEnitity;
 import cn.oddcloud.www.Spider.Api.Yiledao.*;
 import cn.oddcloud.www.Web.Entity.PlayContentEntity;
 import cn.oddcloud.www.Web.service.MovieService;
@@ -16,6 +17,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.security.Security;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,12 +55,13 @@ public class MovieController {
 
     @RequestMapping(value = "/v_show/id_{vid}", method = RequestMethod.GET)
     public String playVideo(@PathVariable String vid,Model model) {
-        String url= playService.getPlayRealUrl(vid);
+        List<YoukuParseEnitity.SegsBean> urls= playService.getPlayRealUrl(vid);
         PlayContentEntity playContentEntity= playService.getOtherPlayMessage(vid);
         model.addAttribute("othervideos",playContentEntity.getMovieWithBLOBsList());
         model.addAttribute("title",playContentEntity.getVideoname());
         model.addAttribute("owntypename",playContentEntity.getVideotypename());
-        model.addAttribute("playurl",url);
+        model.addAttribute("playurl",urls);
+
         return "vod_play";
     }
 

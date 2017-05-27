@@ -76,9 +76,5 @@ public class IndexViewController {
 
         return "404";
     }
-    @RequestMapping("/spider")
-    public String spidering(){
-        return "spidering";
-    }
 
 }

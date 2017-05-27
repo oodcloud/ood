@@ -23,7 +23,7 @@
                 <a href="javascript:;">视频</a>
                 <dl class="layui-nav-child">
                     <dd data-url="/admin/videodata"  data-id="1"  class=""><a  href="javascript:;">视频数据</a></dd>
-                    <dd  data-url="/sync/index" data-id="2"><a  href="javascript:;">同步下载远程图片</a></dd>
+                    <dd  data-url="/admin/syncimg" data-id="2"><a  href="javascript:;">同步下载远程图片</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -36,8 +36,8 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">采集</a>
                 <dl class="layui-nav-child">
-                    <dd data-url="/admin//collectunion"  data-id="7" ><a href="javascript:;">在线采集</a></dd>
-                    <dd data-url="/admin//collecttimer"  data-id="8" ><a href="javascript:;">定时采集</a></dd>
+                    <dd data-url="/admin/collectunion"  data-id="7" ><a href="javascript:;">在线采集</a></dd>
+                    <dd data-url="/admin/collecttimer"  data-id="8" ><a href="javascript:;">定时采集</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -58,7 +58,7 @@
         </ul>
         <div class="layui-tab-content" >
             <div class="layui-tab-item layui-show">
-                <iframe name="mainFrame"   height="1000px" width="100%" frameborder="0" src="/admin/welcome"></iframe>
+                <iframe name="mainFrame"   height="1000px" width="100%" frameborder="0" src="/admin/welcome" ></iframe>
             </div>
         </div>
     </div>
@@ -69,7 +69,7 @@
 
 
     layui.use(['layer','element'], function () {
-        var $ = layui.jquery
+        var $ = layui.jquery;
         var element = layui.element();
         element.on('nav(Menu_index_tab)', function (elem) {
             $('iframe').attr('src',elem.data('url'));
