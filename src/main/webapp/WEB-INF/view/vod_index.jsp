@@ -26,8 +26,8 @@
         <p>在这你能三十秒不笑吗？</p>
         <div class="search-form">
             <div class="input-group text-sm">
-                <form method="get" action="#">
-                    <input type="text" name="s" class="search-input" placeholder="搜索一下">
+                <form method="post" action="/search">
+                    <input type="text" name="worldkey" class="search-input" placeholder="搜索一下">
                     <button class="search-btn" type="submit">搜索</button>
                 </form>
             </div>

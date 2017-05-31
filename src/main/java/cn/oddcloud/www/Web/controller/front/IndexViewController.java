@@ -4,7 +4,9 @@ import cn.generator.pojo.MovieWithBLOBs;
 import cn.oddcloud.www.Web.service.MovieService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -76,5 +78,19 @@ public class IndexViewController {
 
         return "404";
     }
+
+
+    @RequestMapping("/search")
+    public String search(@RequestParam String worldkey, Model model){
+
+      if (worldkey!=null&&!worldkey.trim().isEmpty())
+      {
+          List<MovieWithBLOBs> movieWithBLOBss=  movieService.SearchLikeByKey(worldkey);
+          model.addAttribute("content",movieWithBLOBss);
+          model.addAttribute("worldkey",worldkey);
+      }
+        return "vod_search";
+    }
+
 
 }

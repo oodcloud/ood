@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: vog1g
@@ -79,7 +80,9 @@
     </div>
 </fieldset>
 
-
+<shiro:hasPermission name="user:create">
+    用户[<shiro:principal/>]<br/>
+</shiro:hasPermission>
 
 
 </body>

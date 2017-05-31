@@ -17,8 +17,8 @@
 
 <div class="layui-tab layui-tab-brief sub-page-tab" lay-filter="F_sub_tab">
     <ul class="layui-tab-title">
-        <li class="layui-this" data-url="/a/sys/user/">管理员</li>
-        <li data-url="/a/sys/user/form/">添加管理员</li>
+        <li class="layui-this" data-url="">管理员</li>
+        <li data-url="">添加管理员</li>
     </ul>
 
     <div class="layui-tab-content">

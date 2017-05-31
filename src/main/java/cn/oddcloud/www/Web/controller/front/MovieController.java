@@ -2,6 +2,7 @@ package cn.oddcloud.www.Web.controller.front;
 
 import cn.generator.pojo.Movie;
 import cn.generator.pojo.MovieWithBLOBs;
+import cn.oddcloud.www.Parse.YoukuParseApi;
 import cn.oddcloud.www.Parse.YoukuParseEnitity;
 import cn.oddcloud.www.Spider.Api.Yiledao.*;
 import cn.oddcloud.www.Web.Entity.PlayContentEntity;
@@ -64,6 +65,25 @@ public class MovieController {
 
         return "vod_play";
     }
+
+
+    @RequestMapping("/videotest")
+    public String playVideoTest(Model model){
+        YoukuParseApi a=new YoukuParseApi();
+        String segsBeanList=  a.parseNewYoukuAll("XMjc0NTU3NTI3Ng==");
+        model.addAttribute("url",segsBeanList);
+
+
+        return "video";
+    }
+    @ResponseBody
+    @RequestMapping("/parse")
+    public String parse(){
+        YoukuParseApi a=new YoukuParseApi();
+        String segsBeanList=  a.parseNewYoukuAll("XMjc0NTU3NTI3Ng==");
+        return segsBeanList;
+    }
+
 
 
 }

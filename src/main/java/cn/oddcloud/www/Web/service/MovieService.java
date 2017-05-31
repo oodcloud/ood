@@ -20,4 +20,7 @@ public interface MovieService {
      List<MovieWithBLOBs> selectMoiveOrderByClassMore(String mClass,int page);
      List<MovieWithBLOBs> AllNotSycnImg();
      ImgeAsycnDataShowEnity UpdataAllNotSycnImgVideoData(MovieWithBLOBs origin,MovieWithBLOBs target);
+
+     List<MovieWithBLOBs> SearchLikeByKey(String m_name);
+
 }

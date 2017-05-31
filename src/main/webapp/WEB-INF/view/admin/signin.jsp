@@ -13,8 +13,10 @@
 </head>
 <body class="bg-info dker">
 
+<div class="signin-logo-position">
+<img src="${webRoot}/images/logotwo.png">
+</div>
 <div class="signin-position">
-
     <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
         <ul class="layui-tab-title">
             <li class="layui-this">登录</li>
@@ -70,7 +72,7 @@
 
         form.on('submit(login)', function (data) {
 
-            $.post("/admin/check", {loginusername: data.field.loginusername, loginpassword: data.field.loginpassword},
+            $.post("/check", {loginusername: data.field.loginusername, loginpassword: data.field.loginpassword},
                 function (data) {
                     if (data.code=="200")
                     {

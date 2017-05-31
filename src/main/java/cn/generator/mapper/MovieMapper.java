@@ -166,4 +166,10 @@ public interface MovieMapper {
     List<MovieWithBLOBs> AllNotSycnImgVideoData();
     int  UpdataAllNotSycnImgVideoData(MovieWithBLOBs movieWithBLOBss);
 
+
+    //前台搜索
+    List<MovieWithBLOBs> SearchLikeByKey(String m_name);
+
+
+
 }

@@ -8,7 +8,9 @@ import cn.oddcloud.www.Web.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by vog1g on 2017/5/10.
@@ -51,5 +53,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public int UpdataUser(OodUserWithBLOBs oodUserWithBLOBs) {
         return oodUserMapper.updateByPrimaryKeySelective(oodUserWithBLOBs);
+    }
+
+    @Override
+    public Set<String> findRoles(String username) {
+        return oodUserMapper.findRoles(username);
+    }
+
+    @Override
+    public Set<String> findPermissions(String username) {
+        String power=oodUserMapper.findPermissions(username);
+        String[] poweritem=power.split("\\,");
+        Set<String> stringSet=new HashSet<>();
+        for (int i = 0; i < poweritem.length; i++) {
+            stringSet.add(poweritem[i]) ;
+        }
+
+        return stringSet;
+    }
+
+    @Override
+    public OodUser findUserByUsername(String username) {
+        return oodUserMapper.findUserByUsername(username);
     }
 }

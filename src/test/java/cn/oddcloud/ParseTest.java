@@ -15,7 +15,7 @@ public class ParseTest {
         YoukuParseApi a=new YoukuParseApi();
 //        a.parseMp4Url("http://v.youku.com/v_show/id_XODA0NTI2ODYw.html");
 //        String url=   a.parsevidmp4("XMjc0NTU3NTI3Ng==");
-       List<YoukuParseEnitity.SegsBean> segsBeanList=  a.parseNewYoukuUrl("XNjU3OTkxMTY=");
+       List<YoukuParseEnitity.SegsBean> segsBeanList=  a.parseNewYoukuUrl("XNzM4MDMzNzIw==");
 
         System.out.println(JSON.toJSONString(segsBeanList));
 

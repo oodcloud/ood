@@ -15,7 +15,7 @@
             <%--<a href="">登录</a>--%>
         <%--</div>--%>
         <!-- 调用站点首页 -->
-        <a class="neihan-logo" href="/"> <img src="${webRoot}/images/logo.png"/></a>
+        <%--<a class="neihan-logo" href="/"> <img src="${webRoot}/images/logo.png"/></a>--%>
         <!-- 导航菜单 -->
         <ul class="layui-nav ">
 

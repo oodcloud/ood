@@ -84,6 +84,18 @@
     select * FROM ood_user JOIN  ood_role on r_id=u_group
 
   </select>
+  <select id="findRoles" resultType="java.lang.String">
+            select r.r_name from ood_user u,ood_role r where u.u_group=r.r_id and u.u_name=#{userName}
+  </select>
+  <select id="findUserByUsername" resultType="cn.generator.pojo.OodUser">
+
+      select * FROM ood_user where u_name=#{userName}
+  </select>
+  <select id="findPermissions" resultType="java.lang.String">
+     select r.r_power from ood_user u,ood_role r where u.u_group=r.r_id and u.u_name=#{userName}
+
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated

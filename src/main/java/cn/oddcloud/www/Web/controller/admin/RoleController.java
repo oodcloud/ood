@@ -24,8 +24,6 @@ import java.util.Map;
 public class RoleController {
     @Resource
     private RoleService roleService;
-
-
     @RequestMapping("/save")
     @ResponseBody
     public Map<String, String> Save(OodRole oodRole) {

@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 public enum ImgAsycnService {
 
     DOWN;
-    public static ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+    public static ExecutorService cachedThreadPool = Executors.newSingleThreadExecutor();
 
     private  MovieService movieService;
 
@@ -63,10 +63,6 @@ public enum ImgAsycnService {
 
                 for (int i = 0; i < movieWithBLOBs.size(); i++) {
 
-                    if (i%20==0)
-                    {
-                        Thread.sleep(500);
-                    }
                     ImgAsycnService.DOWN.downloadImg(movieWithBLOBs.get(i),directory);
                 }
 
@@ -119,10 +115,10 @@ public enum ImgAsycnService {
                     {
                         movieWithBLOBs1.setmPic(CommonUtils.picpath(movieWithBLOBs.getmPic()));
 
-                        movieService.UpdataAllNotSycnImgVideoData(movieWithBLOBs,movieWithBLOBs1);
+                        movieService.UpdataAllNotSycnImgVideoData(movieWithBLOBs1,movieWithBLOBs1);
                     }else {
 
-                        movieService.UpdataAllNotSycnImgVideoData(movieWithBLOBs,movieWithBLOBs1);
+                        movieService.UpdataAllNotSycnImgVideoData(movieWithBLOBs1,movieWithBLOBs1);
 
                     }
                 }

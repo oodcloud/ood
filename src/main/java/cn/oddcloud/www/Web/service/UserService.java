@@ -9,6 +9,7 @@ import cn.generator.pojo.OodUserWithBLOBs;
 import cn.generator.pojo.UserWithRole;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -29,5 +30,9 @@ public interface UserService {
     int UpdataUser(OodUserWithBLOBs oodUserWithBLOBs);
 
 
+    Set<String> findRoles(String username);
 
+    Set<String> findPermissions(String username);
+
+    OodUser findUserByUsername(String username);
 }

@@ -3,27 +3,26 @@ package cn.oddcloud.www.Parse;
 
 import cn.oddcloud.www.Utils.JsoupUtils;
 import cn.oddcloud.www.Utils.UrlUtils;
+import cn.oddcloud.www.Web.Entity.Videos;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 /**
  * Created by vog1g on 2017/4/28.
  */
 @Component
 public class YoukuParseApi {
-//    https://ups.youku.com/ups/get.json?vid=%s&ccode=0401&client_ip=192.168.1.1&utid=RqdTEQmk9RsCAXxdxAjbzVmN&client_ts=1495708398
+    //    https://ups.youku.com/ups/get.json?vid=%s&ccode=0401&client_ip=192.168.1.1&utid=RqdTEQmk9RsCAXxdxAjbzVmN&client_ts=1495708398
     private final static String VIDEO_INFO_API2 = "https://ups.youku.com/ups/get.json?vid=%s&ccode=0401&client_ip=192.168.1.1&utid=RqdTEQmk9RsCAXxdxAjbzVmN&client_ts=1495708398";
-        private final static String VIDEO_INFO_API = "http://play-ali.youku.com/play/get.json?vid=%s&ct=12";
+    private final static String VIDEO_INFO_API = "http://play-ali.youku.com/play/get.json?vid=%s&ct=12";
     private final static String VIDEO_PLAY = "http://pl.youku.com/playlist/m3u8?vid=%s&type=%s&ts=%s&keyframe=0&ep=%s&sid=%s&token=%s&ctype=12&ev=1&oip=%s";
     private final static String[] TYPE = {"flv", "mp4", "hd2", "hd3"};
 
@@ -32,43 +31,111 @@ public class YoukuParseApi {
     private static int[] e = {19, 1, 4, 7, 30, 14, 28, 8, 24, 17, 6, 35, 34, 16, 9, 10, 13, 22, 32, 29, 31, 21, 18, 3, 2, 23, 25, 27, 11, 20, 5, 15, 12, 0, 33, 26};
 
 
-
-    public List<YoukuParseEnitity.SegsBean> parseNewYoukuUrl(String vid){
+    public List<YoukuParseEnitity.SegsBean> parseNewYoukuUrl(String vid) {
 
         String uvid = getVid("http://v.youku.com/v_show/id_" + vid + ".html");
         String api = String.format(VIDEO_INFO_API2, uvid);
         String resource = JsoupUtils.getDocWithPhone(api).text();
         JSONObject get = JSONObject.parseObject(resource);
-        if (get.getJSONObject("data").getJSONArray("stream")==null)
-        {
+        if (get.getJSONObject("data").getJSONArray("stream") == null) {
 
             return null;
         }
 
         JSONArray streams = get.getJSONObject("data").getJSONArray("stream");
-        String videodatas=JSON.toJSONString(streams);
+        String videodatas = JSON.toJSONString(streams);
         System.out.println(videodatas);
-        List<YoukuParseEnitity> parseEnitityList=JSON.parseArray(videodatas,YoukuParseEnitity.class);
+        List<YoukuParseEnitity> parseEnitityList = JSON.parseArray(videodatas, YoukuParseEnitity.class);
 //        flvhd  mp4hd   mp4hd2 mp4hd3 flvhd mp4hd
 
         for (int i = 0; i < parseEnitityList.size(); i++) {
-            if ("mp4hd".equals(parseEnitityList.get(i).getStream_type()))
-            {
+            if ("mp4hd".equals(parseEnitityList.get(i).getStream_type())) {
                 return parseEnitityList.get(i).getSegs();
             }
 
         }
 
         for (int i = 0; i < parseEnitityList.size(); i++) {
-            if ("mp4hd2".equals(parseEnitityList.get(i).getStream_type()))
-            {
+            if ("mp4hd2".equals(parseEnitityList.get(i).getStream_type())) {
                 return parseEnitityList.get(i).getSegs();
             }
 
         }
 
 
-      return parseEnitityList.get(0).getSegs();
+        return parseEnitityList.get(0).getSegs();
+
+
+    }
+
+
+    public String parseNewYoukuAll(String vid) {
+
+        String uvid = getVid("http://v.youku.com/v_show/id_" + vid + ".html");
+        String api = String.format(VIDEO_INFO_API2, uvid);
+        String resource = JsoupUtils.getDocWithPhone(api).text();
+        System.out.println(resource);
+        JSONObject get = JSONObject.parseObject(resource);
+        Videos video = new Videos();
+        if (get.getJSONObject("data").getJSONArray("stream") == null) {
+            video.setStatus(500);
+        } else {
+
+            Videos.MsgBean msgBean = new Videos.MsgBean();
+            msgBean.setSite("youku");
+            Videos.MsgBean.SegsBean segsBean = new Videos.MsgBean.SegsBean();
+            List<Videos.MsgBean.SegsBean._$1080pBean> _$1080p = new ArrayList<>();
+            List<Videos.MsgBean.SegsBean._$720pBean> _$720p = new ArrayList<>();
+            List<Videos.MsgBean.SegsBean.HDBean> HD = new ArrayList<>();
+            List<Videos.MsgBean.SegsBean.SDBean> SD = new ArrayList<>();
+            JSONArray streams = get.getJSONObject("data").getJSONArray("stream");
+            String videodatas = JSON.toJSONString(streams);
+            List<YoukuParseEnitity> parseEnitityList = JSON.parseArray(videodatas, YoukuParseEnitity.class);
+
+            for (int i = 0; i < parseEnitityList.size(); i++) {
+                List<YoukuParseEnitity.SegsBean> segsBeans = parseEnitityList.get(i).getSegs();
+                if ("flvhd".equals(parseEnitityList.get(i).getStream_type())) {
+                    for (int j = 0; j < segsBeans.size(); j++) {
+                        Videos.MsgBean.SegsBean.SDBean sdBean = new Videos.MsgBean.SegsBean.SDBean();
+                        sdBean.setUrl(segsBeans.get(j).getCdn_url());
+                        SD.add(sdBean);
+                    }
+                }
+                if ("mp4hd".equals(parseEnitityList.get(i).getStream_type())) {
+                    for (int j = 0; j < segsBeans.size(); j++) {
+                        Videos.MsgBean.SegsBean.HDBean hdBean = new Videos.MsgBean.SegsBean.HDBean();
+                        hdBean.setUrl(segsBeans.get(j).getCdn_url());
+                        HD.add(hdBean);
+                    }
+                }
+                if ("mp4hd2".equals(parseEnitityList.get(i).getStream_type())) {
+                    for (int j = 0; j < segsBeans.size(); j++) {
+                        Videos.MsgBean.SegsBean._$720pBean $720pbean = new Videos.MsgBean.SegsBean._$720pBean();
+                        $720pbean.setUrl(segsBeans.get(j).getCdn_url());
+                        _$720p.add($720pbean);
+                    }
+                }
+                if ("mp4hd3".equals(parseEnitityList.get(i).getStream_type())) {
+                    for (int j = 0; j < segsBeans.size(); j++) {
+                        Videos.MsgBean.SegsBean._$1080pBean _$1080pbean = new Videos.MsgBean.SegsBean._$1080pBean();
+                        _$1080pbean.setUrl(segsBeans.get(j).getCdn_url());
+                        _$1080p.add(_$1080pbean);
+                    }
+                }
+
+
+            }
+            segsBean.setSD(SD);
+            segsBean.setHD(HD);
+            segsBean.set_$720p(_$720p);
+            segsBean.set_$1080p(_$1080p);
+            msgBean.setSegs(segsBean);
+            video.setMsg(msgBean);
+            video.setStatus(0);
+        }
+
+
+        return JSON.toJSONString(video);
 
 
     }
@@ -144,9 +211,9 @@ public class YoukuParseApi {
 
 
     public String parsevidhd0mp4(String vid) {
-        System.out.println(System.currentTimeMillis()+"-------------------->>>start");
+        System.out.println(System.currentTimeMillis() + "-------------------->>>start");
 
-        String vidsa="";
+        String vidsa = "";
         String uvid = getVid("http://v.youku.com/v_show/id_" + vid + ".html");
         String api = String.format(VIDEO_INFO_API, uvid);
         String resource = JsoupUtils.getDocWithPC(api).text();
@@ -163,8 +230,7 @@ public class YoukuParseApi {
         String token = param[1];
         long ts = new Date().getTime() / 1000;
         JSONArray streams = get.getJSONObject("data").getJSONArray("stream");
-        if (streams==null||streams.isEmpty())
-        {
+        if (streams == null || streams.isEmpty()) {
             return "视频不存在";
         }
 
@@ -174,11 +240,11 @@ public class YoukuParseApi {
             String key = segs.getJSONObject(j).getString("key");
             String ep = encode64(rc4(translate("boa4poz1", e), sid + "_" + fileId + "_" + token));
             ep = UrlUtils.URLEncodeByUTF8(ep);
-             vidsa = "http://k.youku.com/player/getFlvPath/sid/" + sid + "_00/st/mp4/fileid/" + fileId + "?K=" + key + "&hd=0&myp=0&ts=" + ts + "&ypp=0&ep=" + ep + "&ctype=12&ev=1&token=" + token + "&oip=" + ip;
+            vidsa = "http://k.youku.com/player/getFlvPath/sid/" + sid + "_00/st/mp4/fileid/" + fileId + "?K=" + key + "&hd=0&myp=0&ts=" + ts + "&ypp=0&ep=" + ep + "&ctype=12&ev=1&token=" + token + "&oip=" + ip;
             System.out.println(vidsa);
 
         }
-        System.out.println(System.currentTimeMillis()+"-------------------->>>start");
+        System.out.println(System.currentTimeMillis() + "-------------------->>>start");
 
         return vidsa;
     }
@@ -407,7 +473,6 @@ public class YoukuParseApi {
         return hashMap;
 
     }
-
 
 
 }

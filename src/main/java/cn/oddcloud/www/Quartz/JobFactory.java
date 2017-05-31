@@ -62,7 +62,6 @@ public class JobFactory implements Job {
                         BaseApiSpider oj = null;
                         try {
                             oj = (BaseApiSpider) method.invoke(null, new Object[]{});
-                            System.out.println(movieService.hashCode());
                             oj.doAction(movieService);
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();

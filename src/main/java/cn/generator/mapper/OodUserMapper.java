@@ -5,6 +5,7 @@ import cn.generator.pojo.OodUserWithBLOBs;
 import cn.generator.pojo.UserWithRole;
 
 import java.util.List;
+import java.util.Set;
 
 public interface OodUserMapper {
     /**
@@ -70,6 +71,14 @@ public interface OodUserMapper {
     int selectUserCheckAllMessage(String name, String passworld);
 
     List<UserWithRole> FindUserAdmin();//查询普通管理员
+
+
+    Set<String> findRoles(String username);
+
+    String findPermissions(String username);
+
+    OodUser findUserByUsername(String username);
+
 
 
 }

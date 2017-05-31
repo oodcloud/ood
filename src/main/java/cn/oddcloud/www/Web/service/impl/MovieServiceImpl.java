@@ -97,5 +97,10 @@ public class MovieServiceImpl implements MovieService {
         return imgeAsycnDataShowEnity;
     }
 
+    @Override
+    public List<MovieWithBLOBs> SearchLikeByKey(String m_name) {
+        return movieMapper.SearchLikeByKey(m_name);
+    }
+
 
 }

@@ -5,6 +5,8 @@ import cn.oddcloud.www.Utils.ConfigProperties;
 import cn.oddcloud.www.Utils.DateUtils;
 import cn.oddcloud.www.Utils.VideoDataLoadType;
 import cn.oddcloud.www.Web.service.*;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,6 +36,9 @@ public class AdminController {
 
     @RequestMapping("/index")
     public String adminIndex(Model model) {
+
+        Subject subject = SecurityUtils.getSubject();
+        
 
 
         return "/admin/index";

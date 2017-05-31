@@ -1,6 +1,10 @@
 package cn.oddcloud.www.Web.controller.admin;
 
 import cn.oddcloud.www.Web.service.UserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +21,6 @@ import java.util.Map;
  * Created by vog1g on 2017/5/10.
  */
 @Controller
-@RequestMapping("/admin")
 public class SigninAndRegister {
 
     @Resource
@@ -32,10 +35,11 @@ public class SigninAndRegister {
     @RequestMapping(value = "/check",method = RequestMethod.POST)
     public Map<String,String> checkValue(@RequestParam(value = "loginusername",required = false)String loginusername, @RequestParam(value = "loginpassword",required = false)String loginpassword, HttpServletRequest httpServletRequest){
         int result = userService.UserNameIsExsit(loginusername); //查询name 和passworld
-        //TODO 首先查name
-        System.out.println("用户名："+loginusername+"密码："+loginpassword);
         HashMap<String,String> hashMap=new HashMap<>();
 
+        Subject subject = SecurityUtils.getSubject() ;
+
+        UsernamePasswordToken token = new UsernamePasswordToken(loginusername,loginpassword) ;
 
         if (result!=1)//查不到name
         {
@@ -44,17 +48,17 @@ public class SigninAndRegister {
             hashMap.put("message","该用户不存在！");
 
         }else {//查到信息name
-            //TODO 查name  和passworld
-            int messageresult=userService.UserCheckAllMessage(loginusername, loginpassword);
-            if (messageresult!=1)
-            {
-                hashMap.put("code","100");
-                hashMap.put("message","密码错误！");
-            }else {
-                HttpSession httpSession=httpServletRequest.getSession();
-                httpSession.setAttribute("username",loginusername);
+
+            try {
+                subject.login(token);
+                Session session= subject.getSession();
+                session.setTimeout(3000000);
                 hashMap.put("code","200");
                 hashMap.put("message","登录成功");
+
+            }catch (Exception e){
+                hashMap.put("code","100");
+                hashMap.put("message","密码错误！");
             }
 
         }
@@ -62,7 +66,12 @@ public class SigninAndRegister {
     }
 
 
+    @RequestMapping("/logout")
+    public String logout(){
 
+        SecurityUtils.getSubject().logout();
+        return "/admin/signin";
+    }
 
 
 }

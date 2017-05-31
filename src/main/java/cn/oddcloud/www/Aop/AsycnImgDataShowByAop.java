@@ -2,6 +2,7 @@ package cn.oddcloud.www.Aop;
 
 import cn.oddcloud.www.Web.Entity.ImgeAsycnDataShowEnity;
 import cn.oddcloud.www.Web.Entity.MovieAopEntity;
+import com.alibaba.fastjson.JSON;
 import org.aspectj.lang.JoinPoint;
 
 import java.util.ArrayList;
@@ -24,5 +25,7 @@ public class AsycnImgDataShowByAop {
             imgqueue.offer(imgeAsycnDataShowEnities);
             imgeAsycnDataShowEnities=new ArrayList<>();
         }
+
+        System.out.println(JSON.toJSONString(imgqueue));
     }
 }

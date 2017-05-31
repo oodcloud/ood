@@ -12,10 +12,9 @@
         <div class="neihan-user">
             <ul class="layui-nav">
             <li class="layui-nav-item">
-                <a href="javascript:;"><i class="layui-icon" style="font-size: 20px; color: #eeeeee;">&#xe60c;</i>  欢迎,王玉杰</a>
+                <a href="javascript:;"><i class="layui-icon" style="font-size: 20px; color: #eeeeee;">&#xe60c;</i>  欢迎,来到内涵三十秒后台</a>
                 <dl class="layui-nav-child">
-                    <dd class="layui-this"> <a href=""><i class="layui-icon" style="font-size: 20px; color: #1E9FFF;">&#xe642;</i> 修改密码</a></dd>
-                    <dd><a href="">退出登录</a></dd>
+                    <dd><a href="/logout">退出登录</a></dd>
                 </dl>
             </li>
             </ul>

@@ -30,7 +30,7 @@
         <mybatis-spring.version>1.2.4</mybatis-spring.version>
         <quartz.version>2.2.1</quartz.version>
 
-        <!--<org.apache.shiro.version></org.apache.shiro.version>-->
+        <org.apache.shiro.version>1.2.2</org.apache.shiro.version>
 
 
         <!--下面这两个是springAOP需要用到-->
@@ -199,26 +199,26 @@
 
 
         <!-- shiro -->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.shiro</groupId>-->
-            <!--<artifactId>shiro-core</artifactId>-->
-            <!--<version>${org.apache.shiro.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.shiro</groupId>-->
-            <!--<artifactId>shiro-web</artifactId>-->
-            <!--<version>${org.apache.shiro.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.shiro</groupId>-->
-            <!--<artifactId>shiro-spring</artifactId>-->
-            <!--<version>${org.apache.shiro.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.shiro</groupId>-->
-            <!--<artifactId>shiro-ehcache</artifactId>-->
-            <!--<version>${org.apache.shiro.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>${org.apache.shiro.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>${org.apache.shiro.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>${org.apache.shiro.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+            <version>${org.apache.shiro.version}</version>
+        </dependency>
 
 
 

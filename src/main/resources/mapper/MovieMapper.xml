@@ -244,6 +244,11 @@
 --         SELECT m_id,m_pic FROM movie where m_pic  like '%http://%'
         SELECT m_pic,m_id FROM movie   WHERE MATCH (m_pic) AGAINST ('http'  IN BOOLEAN MODE);
     </select>
+    <select id="SearchLikeByKey" resultType="cn.generator.pojo.MovieWithBLOBs">
+
+        select * from movie where m_name like  CONCAT('%',#{m_name},'%')
+
+    </select>
 
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
